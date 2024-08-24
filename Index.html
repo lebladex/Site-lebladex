@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LeBladex Gaming Universe</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+        
+        body, html {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #33ff33;
+            overflow-x: hidden;
+        }
+        #matrix-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+        }
+        .content-wrapper {
+            position: relative;
+            z-index: 1;
+            background: rgba(0, 0, 0, 0.7);
+            min-height: 100%;
+        }
+        .header-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 100px;
+            overflow: hidden;
+            z-index: -1;
+        }
+        .pixel {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: #33ff33;
+            opacity: 0.1;
+            box-shadow: 0 0 5px #33ff33;
+            animation: pixelAnim 3s infinite;
+        }
+        @keyframes pixelAnim {
+            0% {
+                opacity: 0.1;
+            }
+            50% {
+                opacity: 0.5;
+            }
+            100% {
+                opacity: 0.1;
+            }
+        }
+        header {
+            background-color: rgba(0, 0, 0, 0.8);
+            padding: 1rem;
+            border-bottom: 2px solid #33ff33;
+            animation: headerGlow 2s ease-in-out;
+            position: relative;
+            z-index: 2;
+        }
+        @keyframes headerGlow {
+            0% {
+                box-shadow: 0 0 0px #33ff33;
+                opacity: 0;
+            }
+            50% {
+                box-shadow: 0 0 20px #33ff33;
+                opacity: 1;
+            }
+            100% {
+                box-shadow: 0 0 10px #33ff33;
+                opacity: 1;
+            }
+        }
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            animation: navAppear 1.5s ease-in-out;
+        }
+        @keyframes navAppear {
+            0% {
+                transform: translateY(-20px);
+                opacity: 0;
+            }
+            100% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        nav ul li {
+            margin: 0 15px;
+        }
+        nav ul li a {
+            color: #33ff33;
+            text-decoration: none;
+            font-weight: bold;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        nav ul li a:hover {
+            color: #ff3333;
+            text-shadow: 0 0 10px #ff3333;
+        }
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: #ff3333;
+            transition: width 0.3s ease;
+        }
+        nav ul li a:hover::after {
+            width: 100%;
+        }
+        .dropdown {
+            position: relative;
+        }
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: rgba(0, 0, 0, 0.9);
+            min-width: 160px;
+            box-shadow: 0 8px 16px 0 rgba(51, 255, 51, 0.2);
+            z-index: 1;
+            border: 1px solid #33ff33;
+        }
+        .dropdown-content a {
+            color: #33ff33;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+        main {
+            padding: 2rem;
+            text-align: center;
+        }
+        h1 {
+            font-family: 'Press Start 2P', cursive;
+            color: #33ff33;
+            font-size: 2.5em;
+            text-shadow: 0 0 10px #33ff33, 0 0 20px #33ff33, 0 0 30px #33ff33;
+            margin-bottom: 30px;
+        }
+        .welcome-message {
+            font-size: 1.2em;
+            margin-bottom: 20px;
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        .bio {
+            background-color: rgba(0, 0, 0, 0.7);
+            border: 2px solid #33ff33;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 30px;
+            text-align: left;
+        }
+        .bio h2 {
+            font-family: 'Press Start 2P', cursive;
+            color: #ff3333;
+            font-size: 1.5em;
+            margin-bottom: 15px;
+        }
+        .stat-bar {
+            background-color: #1a1a1a;
+            border: 1px solid #33ff33;
+            height: 20px;
+            margin-bottom: 10px;
+            position: relative;
+        }
+        .stat-fill {
+            background-color: #33ff33;
+            height: 100%;
+            transition: width 1s ease-in-out;
+        }
+        .stat-text {
+            position: absolute;
+            right: 5px;
+            top: 0;
+            color: #ffffff;
+            font-size: 0.8em;
+            line-height: 20px;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="matrix-bg"></canvas>
+    <div class="content-wrapper">
+        <div class="header-background"></div>
+        <header>
+            <nav>
+                <ul>
+                    <li><a href="#home">Accueil</a></li>
+                    <li class="dropdown">
+                        <a href="#gaming">Gaming</a>
+                        <div class="dropdown-content">
+                            <a href="#pc">PC Master Race</a>
+                            <a href="#console">Console Legends</a>
+                            <a href="#mobile">Mobile Mayhem</a>
+                        </div>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#manga">Manga</a>
+                        <div class="dropdown-content">
+                            <a href="#shonen">Shonen Showdown</a>
+                            <a href="#seinen">Seinen Saga</a>
+                            <a href="#shojo">Shojo Spectrum</a>
+                        </div>
+                    </li>
+                    <li><a href="#forum">Arena (Forum)</a></li>
+                </ul>
+            </nav>
+        </header>
+        <main>
+            <h1>LeBladex Gaming Universe</h1>
+            <p class="welcome-message">Bienvenue sur la page de LeBladex, Gamer Extraordinaire !</p>
+            <p>Préparez-vous à plonger dans un monde de pixels, de polygones et de pages manga !</p>
+            
+            <div class="bio">
+                <h2>Bio de LeBladex</h2>
+                <p>Niveau 42 | Classe: Maître du Multivers Gaming</p>
+                <p>LeBladex, légende vivante du gaming, maîtrise tous les genres avec une précision chirurgicale. Son aventure à travers les mondes virtuels continue...</p>
+                
+                <h3>Progression de l'Aventure</h3>
+                <div class="stat-bar">
+                    <div class="stat-fill" style="width: 75%"></div>
+                    <span class="stat-text">Quête Principale: 75%</span>
+                </div>
+                <div class="stat-bar">
+                    <div class="stat-fill" style="width: 90%"></div>
+                    <span class="stat-text">Exploration: 90%</span>
+                </div>
+                <div class="stat-bar">
+                    <div class="stat-fill" style="width: 60%"></div>
+                    <span class="stat-text">Collection d'Artefacts: 60%</span>
+                </div>
+                <div class="stat-bar">
+                    <div class="stat-fill" style="width: 85%"></div>
+                    <span class="stat-text">Réputation: 85%</span>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script>
+        // Script existant pour la navigation et les barres de progression
+        document.querySelectorAll('nav a').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href').substring(1);
+                document.querySelectorAll('main > *').forEach(el => el.style.display = 'none');
+                document.getElementById(targetId).style.display = 'block';
+            });
+        });
+
+        window.onload = function() {
+            document.querySelectorAll('.stat-fill').forEach(bar => {
+                const width = bar.style.width;
+                bar.style.width = '0%';
+                setTimeout(() => {
+                    bar.style.width = width;
+                }, 500);
+            });
+
+            // Création des pixels animés dans le header
+            const headerBg = document.querySelector('.header-background');
+            for (let i = 0; i < 50; i++) {
+                const pixel = document.createElement('div');
+                pixel.classList.add('pixel');
+                pixel.style.left = `${Math.random() * 100}%`;
+                pixel.style.top = `${Math.random() * 100}px`;
+                pixel.style.animationDelay = `${Math.random() * 3}s`;
+                headerBg.appendChild(pixel);
+            }
+        };
+
+        // Nouveau script pour l'animation Matrix
+        const canvas = document.getElementById('matrix-bg');
+        const ctx = canvas.getContext('2d');
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const katakana = 'アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン';
+        const latin = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        const nums = '0123456789';
+
+        const alphabet = katakana + latin + nums;
+
+        const fontSize = 16;
+        const columns = canvas.width/fontSize;
+
+        const rainDrops = [];
+
+        for( let x = 0; x < columns; x++ ) {
+            rainDrops[x] = 1;
+        }
+
+        const draw = () => {
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            ctx.fillStyle = '#0F0';
+            ctx.font = fontSize + 'px monospace';
+
+            for(let i = 0; i < rainDrops.length; i++)
+            {
+                const text = alphabet.charAt(Math.floor(Math.random() * alphabet.length));
+                ctx.fillText(text, i*fontSize, rainDrops[i]*fontSize);
+                
+                if(rainDrops[i]*fontSize > canvas.height && Math.random() > 0.975){
+                    rainDrops[i] = 0;
+                }
+                rainDrops[i]++;
+            }
+        };
+
+        setInterval(draw, 30);
+
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+    </script>
+</body>
+</html>
