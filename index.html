@@ -209,62 +209,6 @@
         section.active {
             display: block; /* La section active est affichée */
         }
-
-        /* Nouveau style ajouté pour la bio */
-        .bio-container {
-            background-color: rgba(0, 0, 0, 0.7);
-            border: 2px solid #33ff33;
-            border-radius: 10px;
-            padding: 20px;
-            max-width: 600px;
-            width: 100%;
-            box-shadow: 0 0 20px #33ff33;
-            margin: 30px auto;
-        }
-        .bio-container h1, .bio-container h2 {
-            font-family: 'Press Start 2P', cursive;
-            color: #33ff33;
-            text-shadow: 0 0 10px #33ff33, 0 0 20px #33ff33;
-            text-align: center;
-        }
-        .bio-container h1 {
-            font-size: 2em;
-            margin-bottom: 20px;
-        }
-        .bio-container h2 {
-            font-size: 1.5em;
-            color: #ff3333;
-            margin-top: 30px;
-        }
-        .bio-container p {
-            margin-bottom: 15px;
-            line-height: 1.6;
-        }
-        .bio-container .stat-bar {
-            background-color: #1a1a1a;
-            border: 1px solid #33ff33;
-            height: 20px;
-            margin-bottom: 15px;
-            position: relative;
-        }
-        .bio-container .stat-fill {
-            background-color: #33ff33;
-            height: 100%;
-            transition: width 1s ease-in-out;
-        }
-        .bio-container .stat-text {
-            position: absolute;
-            right: 5px;
-            top: 0;
-            color: #ffffff;
-            font-size: 0.8em;
-            line-height: 20px;
-        }
-        .bio-container .player-info {
-            text-align: center;
-            margin-bottom: 20px;
-            font-size: 1.1em;
-        }
     </style>
 </head>
 <body>
@@ -283,42 +227,47 @@
                             <a href="#mobile">Mobile Mayhem</a>
                         </div>
                     </li>
-                    <li><a href="#manga">Manga</a></li>
-                    <li><a href="#forum">Forum</a></li>
+                    <li class="dropdown">
+                        <a href="#manga">Manga</a>
+                        <div class="dropdown-content">
+                            <a href="#shonen">Shonen Showdown</a>
+                            <a href="#seinen">Seinen Saga</a>
+                            <a href="#shojo">Shojo Spectrum</a>
+                        </div>
+                    </li>
+                    <li><a href="#forum">Arena (Forum)</a></li>
                 </ul>
             </nav>
         </header>
         <main>
-            <h1>Bienvenue dans l'univers de LeBladex !</h1>
-            <p class="welcome-message">Préparez-vous à plonger dans un monde de pixels, de polygones et de pages manga !</p>
+            <section id="home" class="active">
+                <h1>LeBladex Gaming Universe</h1>
+                <p class="welcome-message">Bienvenue sur la page de LeBladex, Gamer Extraordinaire !</p>
+                <p>Préparez-vous à plonger dans un monde de pixels, de polygones et de pages manga !</p>
+            </section>
+            
+            <section id="application">
+                <h1>Application</h1>
+                <p>Découvrez nos outils et applications pour personnaliser votre expérience en ligne.</p>
+            </section>
 
-            <!-- Contenu bio inséré ici -->
-            <div class="bio-container">
-                <h1>LeBladex</h1>
-                <p class="player-info"><strong>Niveau:</strong> 42 | <strong>Classe:</strong> Maître du Multivers Gaming</p>
-                <p>LeBladex, légende vivante du gaming, maîtrise tous les genres avec une précision chirurgicale. Son aventure à travers les mondes virtuels continue, repoussant sans cesse les limites du possible.</p>
-                
-                <h2>Progression de l'Aventure</h2>
-                <div class="stat-bar">
-                    <div class="stat-fill" style="width: 75%"></div>
-                    <span class="stat-text">Quête Principale: 75%</span>
-                </div>
-                <div class="stat-bar">
-                    <div class="stat-fill" style="width: 90%"></div>
-                    <span class="stat-text">Exploration: 90%</span>
-                </div>
-                <div class="stat-bar">
-                    <div class="stat-fill" style="width: 60%"></div>
-                    <span class="stat-text">Collection d'Artefacts: 60%</span>
-                </div>
-                <div class="stat-bar">
-                    <div class="stat-fill" style="width: 85%"></div>
-                    <span class="stat-text">Réputation: 85%</span>
-                </div>
-            </div>
+            <section id="imvu">
+                <h1>Générateur de pseudo IMVU</h1>
+                <p>Générez des pseudos uniques et stylés pour vos profils IMVU.</p>
+            </section>
+
+            <section id="hackeur">
+                <h1>Générateur de pseudo hackeur stylé</h1>
+                <p>Créez des pseudos qui imposent le respect dans l'univers cyber.</p>
+            </section>
+
+            <section id="mobile">
+                <h1>Mobile Mayhem</h1>
+                <p>Le chaos du gaming mobile. Jouez n'importe où, n'importe quand.</p>
+            </section>
 
             <section id="manga">
-                <h1>Manga Mania</h1>
+                <h1>Manga</h1>
                 <p>Plongez dans le monde fascinant des mangas.</p>
             </section>
 
@@ -378,7 +327,7 @@
             }
         };
 
-        // Script pour l'animation Matrix
+        // Nouveau script pour l'animation Matrix
         const canvas = document.getElementById('matrix-bg');
         const ctx = canvas.getContext('2d');
 
