@@ -209,6 +209,62 @@
         section.active {
             display: block; /* La section active est affichée */
         }
+
+        /* Nouveaux styles pour le générateur de pseudo IMVU */
+        .generator-container {
+            background-color: rgba(0, 0, 0, 0.7);
+            border: 2px solid #33ff33;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 30px;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .generator-input {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+        .generator-input input {
+            flex-grow: 1;
+            margin-right: 10px;
+            padding: 10px;
+            background-color: #1a1a1a;
+            border: 1px solid #33ff33;
+            color: #33ff33;
+            font-size: 16px;
+        }
+        .generator-input button {
+            padding: 10px 20px;
+            background-color: #33ff33;
+            color: #000;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        .generator-input button:hover {
+            background-color: #ff3333;
+            color: #fff;
+        }
+        .generated-pseudo {
+            font-size: 24px;
+            text-align: center;
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #1a1a1a;
+            border: 1px solid #33ff33;
+            animation: glow 1.5s ease-in-out infinite alternate;
+        }
+        @keyframes glow {
+            from {
+                text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #33ff33, 0 0 20px #33ff33, 0 0 35px #33ff33, 0 0 40px #33ff33, 0 0 50px #33ff33;
+            }
+            to {
+                text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #33ff33, 0 0 40px #33ff33, 0 0 70px #33ff33, 0 0 80px #33ff33, 0 0 100px #33ff33;
+            }
+        }
     </style>
 </head>
 <body>
@@ -254,56 +310,15 @@
             <section id="imvu">
                 <h1>Générateur de pseudo IMVU</h1>
                 <p>Générez des pseudos uniques et stylés pour vos profils IMVU.</p>
+                <div class="generator-container">
+                    <div class="generator-input">
+                        <input type="text" id="baseInput" placeholder="Entrez un mot de base">
+                        <button onclick="generatePseudo()">Générer</button>
+                    </div>
+                    <div class="generated-pseudo" id="generatedPseudo"></div>
+                </div>
             </section>
-<section id="imvu">
-    <div class="container">
-        <h1>Générateur de Pseudos IMVU</h1>
-        <div id="username">Cliquez pour générer un pseudo</div>
-        <button onclick="generateUsername()">Générer un Pseudo</button>
-    </div>
-</section>
 
-<script>
-    const adjectives = ['Cool', 'Sweet', 'Dark', 'Bright', 'Mystic', 'Crazy', 'Wild', 'Fancy', 'Epic', 'Dreamy', 'Neon', 'Cyber', 'Retro', 'Glam', 'Funky', 'Chill', 'Savage', 'Fierce', 'Sleek', 'Zen'];
-    const nouns = ['Angel', 'Shadow', 'Star', 'Pixie', 'Dragon', 'Phoenix', 'Tiger', 'Wolf', 'Unicorn', 'Mermaid', 'Ninja', 'Wizard', 'Rebel', 'Diva', 'Ghost', 'Warrior', 'Queen', 'King', 'Pirate', 'Vampire'];
-    const actions = ['Dancer', 'Dreamer', 'Rider', 'Hunter', 'Seeker', 'Lover', 'Fighter', 'Watcher', 'Player', 'Maker', 'Breaker', 'Keeper', 'Chaser', 'Bringer', 'Slayer', 'Tamer', 'Walker', 'Runner', 'Flyer', 'Singer'];
-    const elements = ['Fire', 'Water', 'Earth', 'Air', 'Ice', 'Light', 'Shadow', 'Thunder', 'Nature', 'Metal', 'Crystal', 'Plasma', 'Void', 'Cosmic', 'Lunar', 'Solar', 'Astral', 'Ethereal', 'Inferno', 'Tsunami'];
-    const numbers = ['', '7', '13', '21', '42', '69', '99', '101', '404', '666', '777', '808', '909', '1337', '2020', '3000', '9000'];
-    const symbols = ['', 'x', '_', '.', '-', '~', '*', '+', '=', '^', '>', '<'];
-
-    function getRandomElement(arr) {
-        return arr[Math.floor(Math.random() * arr.length)];
-    }
-
-    function capitalizeFirstLetter(string) {
-        return string.charAt(0).toUpperCase() + string.slice(1);
-    }
-
-    function generateUsername() {
-        let username = '';
-        const structure = Math.floor(Math.random() * 5); // 0 to 4
-
-        switch (structure) {
-            case 0:
-                username = `${getRandomElement(adjectives)}${getRandomElement(nouns)}${getRandomElement(numbers)}`;
-                break;
-            case 1:
-                username = `${getRandomElement(elements)}${getRandomElement(actions)}${getRandomElement(symbols)}${getRandomElement(numbers)}`;
-                break;
-            case 2:
-                username = `${getRandomElement(symbols)}${getRandomElement(adjectives)}${getRandomElement(elements)}${getRandomElement(numbers)}`;
-                break;
-            case 3:
-                username = `${capitalizeFirstLetter(getRandomElement(nouns))}${getRandomElement(symbols)}${getRandomElement(actions)}${getRandomElement(numbers)}`;
-                break;
-            case 4:
-                username = `${getRandomElement(elements)}${getRandomElement(symbols)}${getRandomElement(adjectives)}${getRandomElement(nouns)}`;
-                break;
-        }
-
-        document.getElementById('username').textContent = username;
-    }
-</script>
             <section id="hackeur">
                 <h1>Générateur de pseudo hackeur stylé</h1>
                 <p>Créez des pseudos qui imposent le respect dans l'univers cyber.</p>
@@ -375,7 +390,7 @@
             }
         };
 
-        // Nouveau script pour l'animation Matrix
+        // Script pour l'animation Matrix
         const canvas = document.getElementById('matrix-bg');
         const ctx = canvas.getContext('2d');
 
@@ -422,6 +437,38 @@
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
         });
+
+        // Fonction pour générer le pseudo IMVU
+        function generatePseudo() {
+            const baseInput = document.getElementById('baseInput').value;
+            const prefixes = ['xX', 'Xx', '_', '.', '-', '0', ''];
+            const suffixes = ['xX', 'Xx', '_', '.', '-', '0', ''];
+            const randomChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+            
+            let pseudo = '';
+            
+            // Ajouter un préfixe aléatoire
+            pseudo += prefixes[Math.floor(Math.random() * prefixes.length)];
+            
+            // Ajouter le mot de base modifié
+            for (let i = 0; i < baseInput.length; i++) {
+                if (Math.random() < 0.3) {
+                    pseudo += baseInput[i].toUpperCase();
+                } else {
+                    pseudo += baseInput[i].toLowerCase();
+                }
+                
+                // Ajouter des caractères aléatoires entre les lettres
+                if (Math.random() < 0.2) {
+                    pseudo += randomChars[Math.floor(Math.random() * randomChars.length)];
+                }
+            }
+            
+            // Ajouter un suffixe aléatoire
+            pseudo += suffixes[Math.floor(Math.random() * suffixes.length)];
+            
+            document.getElementById('generatedPseudo').textContent = pseudo;
+        }
     </script>
 </body>
 </html>
