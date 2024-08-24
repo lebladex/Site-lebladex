@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LeBladex Gaming Universe</title>
     <style>
+        /* Le style existant reste le même */
         @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
         
         body, html {
@@ -201,6 +202,13 @@
             font-size: 0.8em;
             line-height: 20px;
         }
+        
+        section {
+            display: none; /* Toutes les sections sont masquées par défaut */
+        }
+        section.active {
+            display: block; /* La section active est affichée */
+        }
     </style>
 </head>
 <body>
@@ -232,43 +240,69 @@
             </nav>
         </header>
         <main>
-            <h1>LeBladex Gaming Universe</h1>
-            <p class="welcome-message">Bienvenue sur la page de LeBladex, Gamer Extraordinaire !</p>
-            <p>Préparez-vous à plonger dans un monde de pixels, de polygones et de pages manga !</p>
+            <section id="home" class="active">
+                <h1>LeBladex Gaming Universe</h1>
+                <p class="welcome-message">Bienvenue sur la page de LeBladex, Gamer Extraordinaire !</p>
+                <p>Préparez-vous à plonger dans un monde de pixels, de polygones et de pages manga !</p>
+            </section>
             
-            <div class="bio">
-                <h2>Bio de LeBladex</h2>
-                <p>Niveau 42 | Classe: Maître du Multivers Gaming</p>
-                <p>LeBladex, légende vivante du gaming, maîtrise tous les genres avec une précision chirurgicale. Son aventure à travers les mondes virtuels continue...</p>
-                
-                <h3>Progression de l'Aventure</h3>
-                <div class="stat-bar">
-                    <div class="stat-fill" style="width: 75%"></div>
-                    <span class="stat-text">Quête Principale: 75%</span>
-                </div>
-                <div class="stat-bar">
-                    <div class="stat-fill" style="width: 90%"></div>
-                    <span class="stat-text">Exploration: 90%</span>
-                </div>
-                <div class="stat-bar">
-                    <div class="stat-fill" style="width: 60%"></div>
-                    <span class="stat-text">Collection d'Artefacts: 60%</span>
-                </div>
-                <div class="stat-bar">
-                    <div class="stat-fill" style="width: 85%"></div>
-                    <span class="stat-text">Réputation: 85%</span>
-                </div>
-            </div>
+            <section id="gaming">
+                <h1>Gaming</h1>
+                <p>Découvrez les dernières tendances et batailles épiques dans l'univers du gaming.</p>
+            </section>
+
+            <section id="pc">
+                <h1>PC Master Race</h1>
+                <p>Le paradis des joueurs sur PC. Tout ce dont vous avez besoin pour dominer vos adversaires.</p>
+            </section>
+
+            <section id="console">
+                <h1>Console Legends</h1>
+                <p>Les héros du gaming sur console. Rejoignez la légende !</p>
+            </section>
+
+            <section id="mobile">
+                <h1>Mobile Mayhem</h1>
+                <p>Le chaos du gaming mobile. Jouez n'importe où, n'importe quand.</p>
+            </section>
+
+            <section id="manga">
+                <h1>Manga</h1>
+                <p>Plongez dans le monde fascinant des mangas.</p>
+            </section>
+
+            <section id="shonen">
+                <h1>Shonen Showdown</h1>
+                <p>Action, aventure et amitié. Tout ce qu'il faut dans un bon shonen.</p>
+            </section>
+
+            <section id="seinen">
+                <h1>Seinen Saga</h1>
+                <p>Des histoires plus sombres et plus profondes pour les lecteurs avertis.</p>
+            </section>
+
+            <section id="shojo">
+                <h1>Shojo Spectrum</h1>
+                <p>L'amour, l'amitié et la vie à travers les yeux des héroïnes.</p>
+            </section>
+
+            <section id="forum">
+                <h1>Arena (Forum)</h1>
+                <p>Rejoignez la communauté et discutez des sujets brûlants du moment.</p>
+            </section>
         </main>
     </div>
+
     <script>
-        // Script existant pour la navigation et les barres de progression
+        // Script pour la navigation entre les pages
         document.querySelectorAll('nav a').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
                 e.preventDefault();
                 const targetId = this.getAttribute('href').substring(1);
-                document.querySelectorAll('main > *').forEach(el => el.style.display = 'none');
-                document.getElementById(targetId).style.display = 'block';
+                document.querySelectorAll('main section').forEach(section => {
+                    section.classList.remove('active');
+                });
+                document.getElementById(targetId).classList.add('active');
             });
         });
 
