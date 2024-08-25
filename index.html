@@ -5,15 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LeBladex Gaming Universe</title>
     <style>
+        /* Le style existant reste le même */
         @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
         
         body, html {
             height: 100%;
             margin: 0;
             padding: 0;
-            font-family: 'Press Start 2P', cursive;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             color: #33ff33;
-            background-color: #000;
             overflow-x: hidden;
         }
         #matrix-bg {
@@ -22,7 +22,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: -1;
+            z-index: -2;
         }
         .content-wrapper {
             position: relative;
@@ -30,19 +30,73 @@
             background: rgba(0, 0, 0, 0.7);
             min-height: 100%;
         }
+        .header-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 100px;
+            overflow: hidden;
+            z-index: -1;
+        }
+        .pixel {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: #33ff33;
+            opacity: 0.1;
+            box-shadow: 0 0 5px #33ff33;
+            animation: pixelAnim 3s infinite;
+        }
+        @keyframes pixelAnim {
+            0% {
+                opacity: 0.1;
+            }
+            50% {
+                opacity: 0.5;
+            }
+            100% {
+                opacity: 0.1;
+            }
+        }
         header {
             background-color: rgba(0, 0, 0, 0.8);
             padding: 1rem;
             border-bottom: 2px solid #33ff33;
+            animation: headerGlow 2s ease-in-out;
             position: relative;
             z-index: 2;
+        }
+        @keyframes headerGlow {
+            0% {
+                box-shadow: 0 0 0px #33ff33;
+                opacity: 0;
+            }
+            50% {
+                box-shadow: 0 0 20px #33ff33;
+                opacity: 1;
+            }
+            100% {
+                box-shadow: 0 0 10px #33ff33;
+                opacity: 1;
+            }
         }
         nav ul {
             list-style-type: none;
             padding: 0;
             display: flex;
             justify-content: center;
-            flex-wrap: wrap;
+            animation: navAppear 1.5s ease-in-out;
+        }
+        @keyframes navAppear {
+            0% {
+                transform: translateY(-20px);
+                opacity: 0;
+            }
+            100% {
+                transform: translateY(0);
+                opacity: 1;
+            }
         }
         nav ul li {
             margin: 0 15px;
@@ -58,6 +112,19 @@
         nav ul li a:hover {
             color: #ff3333;
             text-shadow: 0 0 10px #ff3333;
+        }
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: #ff3333;
+            transition: width 0.3s ease;
+        }
+        nav ul li a:hover::after {
+            width: 100%;
         }
         .dropdown {
             position: relative;
@@ -85,86 +152,125 @@
             text-align: center;
         }
         h1 {
+            font-family: 'Press Start 2P', cursive;
             color: #33ff33;
             font-size: 2.5em;
             text-shadow: 0 0 10px #33ff33, 0 0 20px #33ff33, 0 0 30px #33ff33;
             margin-bottom: 30px;
         }
-        section {
-            display: none;
+        .welcome-message {
+            font-size: 1.2em;
+            margin-bottom: 20px;
+            animation: pulse 2s infinite;
         }
-        section.active {
-            display: block;
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
         }
-        /* Styles spécifiques au jeu RPG */
-        #game-container {
-            background-color: rgba(0, 0, 0, 0.8);
+        .bio {
+            background-color: rgba(0, 0, 0, 0.7);
             border: 2px solid #33ff33;
             border-radius: 10px;
             padding: 20px;
             margin-top: 30px;
-            max-width: 800px;
+            text-align: left;
+        }
+        .bio h2 {
+            font-family: 'Press Start 2P', cursive;
+            color: #ff3333;
+            font-size: 1.5em;
+            margin-bottom: 15px;
+        }
+        .stat-bar {
+            background-color: #1a1a1a;
+            border: 1px solid #33ff33;
+            height: 20px;
+            margin-bottom: 10px;
+            position: relative;
+        }
+        .stat-fill {
+            background-color: #33ff33;
+            height: 100%;
+            transition: width 1s ease-in-out;
+        }
+        .stat-text {
+            position: absolute;
+            right: 5px;
+            top: 0;
+            color: #ffffff;
+            font-size: 0.8em;
+            line-height: 20px;
+        }
+        
+        section {
+            display: none; /* Toutes les sections sont masquées par défaut */
+        }
+        section.active {
+            display: block; /* La section active est affichée */
+        }
+
+        /* Nouveaux styles pour le générateur de pseudo IMVU */
+        .generator-container {
+            background-color: rgba(0, 0, 0, 0.7);
+            border: 2px solid #33ff33;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 30px;
+            max-width: 500px;
             margin-left: auto;
             margin-right: auto;
         }
-        #game-text {
-            background-color: #111;
-            color: #33ff33;
-            padding: 15px;
-            margin-bottom: 15px;
-            height: 200px;
-            overflow-y: auto;
-            border: 1px solid #33ff33;
-            font-size: 14px;
-        }
-        #game-controls {
+        .generator-input {
             display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
         }
-        #game-controls button {
+        .generator-input input {
+            flex-grow: 1;
+            margin-right: 10px;
+            padding: 10px;
             background-color: #1a1a1a;
-            color: #33ff33;
             border: 1px solid #33ff33;
-            padding: 10px 20px;
-            margin: 5px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-family: 'Press Start 2P', cursive;
+            color: #33ff33;
+            font-size: 16px;
         }
-        #game-controls button:hover {
+        .generator-input button {
+            padding: 10px 20px;
             background-color: #33ff33;
             color: #000;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
         }
-        #player-stats {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 10px;
-            margin-bottom: 15px;
+        .generator-input button:hover {
+            background-color: #ff3333;
+            color: #fff;
         }
-        .stat {
-            background-color: #1a1a1a;
-            color: #33ff33;
-            padding: 10px;
-            border-radius: 5px;
+        .generated-pseudo {
+            font-size: 24px;
             text-align: center;
-            border: 1px solid #33ff33;
-        }
-        #inventory, #skills, #quests {
-            margin-top: 15px;
-            background-color: #1a1a1a;
+            margin-top: 20px;
             padding: 10px;
+            background-color: #1a1a1a;
             border: 1px solid #33ff33;
+            animation: glow 1.5s ease-in-out infinite alternate;
         }
-        h2 {
-            color: #ff3333;
-            margin-bottom: 10px;
+        @keyframes glow {
+            from {
+                text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #33ff33, 0 0 20px #33ff33, 0 0 35px #33ff33, 0 0 40px #33ff33, 0 0 50px #33ff33;
+            }
+            to {
+                text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #33ff33, 0 0 40px #33ff33, 0 0 70px #33ff33, 0 0 80px #33ff33, 0 0 100px #33ff33;
+            }
         }
     </style>
 </head>
 <body>
     <canvas id="matrix-bg"></canvas>
     <div class="content-wrapper">
+        <div class="header-background"></div>
         <header>
             <nav>
                 <ul>
@@ -174,7 +280,7 @@
                         <div class="dropdown-content">
                             <a href="#imvu">Générateur de pseudo IMVU</a>
                             <a href="#hackeur">Générateur de pseudo hackeur stylé</a>
-                            <a href="#mobile">lebladex gam RPG</a>
+                            <a href="#mobile">Mobile Mayhem</a>
                         </div>
                     </li>
                     <li class="dropdown">
@@ -192,7 +298,7 @@
         <main>
             <section id="home" class="active">
                 <h1>LeBladex Gaming Universe</h1>
-                <p>Bienvenue sur la page de LeBladex, Gamer Extraordinaire !</p>
+                <p class="welcome-message">Bienvenue sur la page de LeBladex, Gamer Extraordinaire !</p>
                 <p>Préparez-vous à plonger dans un monde de pixels, de polygones et de pages manga !</p>
             </section>
             
@@ -219,38 +325,8 @@
             </section>
 
             <section id="mobile">
-                <h1>Lebladex Gam RPG</h1>
-                <div id="game-container">
-                    <div id="player-stats">
-                        <span class="stat" id="health">Santé: 100/100</span>
-                        <span class="stat" id="attack">Attaque: 10</span>
-                        <span class="stat" id="defense">Défense: 5</span>
-                        <span class="stat" id="gold">Or: 0</span>
-                        <span class="stat" id="level">Niveau: 1</span>
-                        <span class="stat" id="xp">XP: 0/100</span>
-                    </div>
-                    <div id="game-text"></div>
-                    <div id="game-controls">
-                        <button id="explore">Explorer</button>
-                        <button id="attack">Attaquer</button>
-                        <button id="heal">Se soigner</button>
-                        <button id="use-skill">Utiliser compétence</button>
-                        <button id="shop">Boutique</button>
-                        <button id="quest">Quêtes</button>
-                    </div>
-                    <div id="inventory">
-                        <h2>Inventaire</h2>
-                        <span id="inventory-list"></span>
-                    </div>
-                    <div id="skills">
-                        <h2>Compétences</h2>
-                        <span id="skills-list"></span>
-                    </div>
-                    <div id="quests">
-                        <h2>Quêtes actives</h2>
-                        <span id="quests-list"></span>
-                    </div>
-                </div>
+                <h1>Mobile Mayhem</h1>
+                <p>Le chaos du gaming mobile. Jouez n'importe où, n'importe quand.</p>
             </section>
 
             <section id="manga">
@@ -293,6 +369,27 @@
             });
         });
 
+        window.onload = function() {
+            document.querySelectorAll('.stat-fill').forEach(bar => {
+                const width = bar.style.width;
+                bar.style.width = '0%';
+                setTimeout(() => {
+                    bar.style.width = width;
+                }, 500);
+            });
+
+            // Création des pixels animés dans le header
+            const headerBg = document.querySelector('.header-background');
+            for (let i = 0; i < 50; i++) {
+                const pixel = document.createElement('div');
+                pixel.classList.add('pixel');
+                pixel.style.left = `${Math.random() * 100}%`;
+                pixel.style.top = `${Math.random() * 100}px`;
+                pixel.style.animationDelay = `${Math.random() * 3}s`;
+                headerBg.appendChild(pixel);
+            }
+        };
+
         // Script pour l'animation Matrix
         const canvas = document.getElementById('matrix-bg');
         const ctx = canvas.getContext('2d');
@@ -322,7 +419,8 @@
             ctx.fillStyle = '#0F0';
             ctx.font = fontSize + 'px monospace';
 
-            for(let i = 0; i < rainDrops.length; i++) {
+            for(let i = 0; i < rainDrops.length; i++)
+            {
                 const text = alphabet.charAt(Math.floor(Math.random() * alphabet.length));
                 ctx.fillText(text, i*fontSize, rainDrops[i]*fontSize);
                 
@@ -349,8 +447,10 @@
             
             let pseudo = '';
             
+            // Ajouter un préfixe aléatoire
             pseudo += prefixes[Math.floor(Math.random() * prefixes.length)];
             
+            // Ajouter le mot de base modifié
             for (let i = 0; i < baseInput.length; i++) {
                 if (Math.random() < 0.3) {
                     pseudo += baseInput[i].toUpperCase();
@@ -358,390 +458,17 @@
                     pseudo += baseInput[i].toLowerCase();
                 }
                 
+                // Ajouter des caractères aléatoires entre les lettres
                 if (Math.random() < 0.2) {
                     pseudo += randomChars[Math.floor(Math.random() * randomChars.length)];
                 }
             }
             
+            // Ajouter un suffixe aléatoire
             pseudo += suffixes[Math.floor(Math.random() * suffixes.length)];
             
             document.getElementById('generatedPseudo').textContent = pseudo;
         }
-
-        // Code du jeu RPG
-        let player = {
-            health: 100,
-            maxHealth: 100,
-            attack: 10,
-            defense: 5,
-            gold: 0,
-            level: 1,
-            xp: 0,
-            nextLevelXp: 100,
-            inventory: {
-                "Potion de soin": 3
-            },
-            skills: ["Frappe puissante"]
-        };
-
-        let currentEnemy = null;
-
- const enemies = [
-            { name: "Gobelin", health: 50, attack: 8, xp: 20, gold: 10 },
-            { name: "Orc", health: 80, attack: 12, xp: 35, gold: 20 },
-            { name: "Troll", health: 120, attack: 15, xp: 50, gold: 30 },
-            { name: "Bandit", health: 70, attack: 10, xp: 30, gold: 25 },
-            { name: "Loup-garou", health: 100, attack: 14, xp: 45, gold: 35 }
-        ];
-
-        const bosses = [
-            { name: "Dragon", health: 300, attack: 25, xp: 200, gold: 200 },
-            { name: "Liche", health: 250, attack: 30, xp: 180, gold: 180 },
-            { name: "Géant de pierre", health: 400, attack: 20, xp: 220, gold: 220 }
-        ];
-
-        let quests = [
-            { id: 1, name: "Chasse aux gobelins", description: "Tuez 5 gobelins", target: "Gobelin", count: 0, required: 5, reward: 100 },
-            { id: 2, name: "Collecter de l'or", description: "Amassez 200 pièces d'or", count: 0, required: 200, reward: 50 },
-            { id: 3, name: "Maître des compétences", description: "Apprenez 3 compétences", count: 0, required: 3, reward: 150 }
-        ];
-
-        let activeQuests = [];
-
-        const gameText = document.getElementById('game-text');
-        const exploreButton = document.getElementById('explore');
-        const attackButton = document.getElementById('attack');
-        const healButton = document.getElementById('heal');
-        const useSkillButton = document.getElementById('use-skill');
-        const shopButton = document.getElementById('shop');
-        const questButton = document.getElementById('quest');
-        const healthStat = document.getElementById('health');
-        const attackStat = document.getElementById('attack');
-        const defenseStat = document.getElementById('defense');
-        const goldStat = document.getElementById('gold');
-        const levelStat = document.getElementById('level');
-        const xpStat = document.getElementById('xp');
-        const inventoryList = document.getElementById('inventory-list');
-        const skillsList = document.getElementById('skills-list');
-        const questsList = document.getElementById('quests-list');
-
-        function addMessage(message) {
-            gameText.innerHTML += `<p>${message}</p>`;
-            gameText.scrollTop = gameText.scrollHeight;
-        }
-
-        function updateStats() {
-            healthStat.textContent = `Santé: ${player.health}/${player.maxHealth}`;
-            attackStat.textContent = `Attaque: ${player.attack}`;
-            defenseStat.textContent = `Défense: ${player.defense}`;
-            goldStat.textContent = `Or: ${player.gold}`;
-            levelStat.textContent = `Niveau: ${player.level}`;
-            xpStat.textContent = `XP: ${player.xp}/${player.nextLevelXp}`;
-            inventoryList.textContent = Object.entries(player.inventory).map(([item, count]) => `${item} (${count})`).join(", ");
-            skillsList.textContent = player.skills.join(", ");
-            updateQuestDisplay();
-        }
-
-        function explore() {
-            if (currentEnemy) {
-                addMessage("Vous ne pouvez pas explorer pendant un combat !");
-                return;
-            }
-
-            const events = [
-                "Vous trouvez un coffre contenant une potion de soin !",
-                "Vous découvrez une ancienne arme, votre attaque augmente !",
-                "Vous tombez sur un piège, vous perdez un peu de santé.",
-                "Vous rencontrez un ennemi !",
-                "Vous trouvez un peu d'or par terre !",
-                "Vous découvrez un ancien livre de sorts et apprenez une nouvelle compétence !",
-                "Vous tombez sur un boss !"
-            ];
-
-            const event = events[Math.floor(Math.random() * events.length)];
-            addMessage(event);
-
-            switch (event) {
-                case events[0]:
-                    player.inventory["Potion de soin"] = (player.inventory["Potion de soin"] || 0) + 1;
-                    addMessage(`Vous avez maintenant ${player.inventory["Potion de soin"]} potions de soin.`);
-                    break;
-                case events[1]:
-                    player.attack += 2;
-                    addMessage("Votre attaque augmente de 2 points !");
-                    break;
-                case events[2]:
-                    player.health = Math.max(1, player.health - 10);
-                    addMessage("Vous perdez 10 points de vie.");
-                    break;
-                case events[3]:
-                    startCombat();
-                    break;
-                case events[4]:
-                    const goldFound = Math.floor(Math.random() * 20) + 1;
-                    player.gold += goldFound;
-                    addMessage(`Vous trouvez ${goldFound} pièces d'or !`);
-                    updateQuestProgress("gold", goldFound);
-                    break;
-                case events[5]:
-                    const newSkills = ["Bouclier magique", "Frappe éclair", "Soin rapide"];
-                    const newSkill = newSkills[Math.floor(Math.random() * newSkills.length)];
-                    if (!player.skills.includes(newSkill)) {
-                        player.skills.push(newSkill);
-                        addMessage(`Vous apprenez la compétence "${newSkill}" !`);
-                        updateQuestProgress("skill");
-                    } else {
-                        addMessage("Vous connaissez déjà toutes les compétences disponibles.");
-                    }
-                    break;
-                case events[6]:
-                    startBossCombat();
-                    break;
-            }
-            updateStats();
-        }
-
-        function startCombat() {
-            currentEnemy = {...enemies[Math.floor(Math.random() * enemies.length)]};
-            addMessage(`Un ${currentEnemy.name} apparaît ! Préparez-vous au combat !`);
-        }
-
-        function startBossCombat() {
-            currentEnemy = {...bosses[Math.floor(Math.random() * bosses.length)]};
-            addMessage(`Un boss apparaît : ${currentEnemy.name} ! Préparez-vous à un combat difficile !`);
-        }
-
-function attack() {
-    if (!currentEnemy) {
-        addMessage("Il n'y a pas d'ennemi à attaquer !");
-        return;
-    }
-    const playerDamage = Math.max(0, player.attack - Math.floor(Math.random() * 5));
-    currentEnemy.health -= playerDamage;
-    addMessage(`Vous infligez ${playerDamage} points de dégâts au ${currentEnemy.name} !`);
-    if (currentEnemy.health <= 0) {
-        const isBoss = bosses.some(boss => boss.name === currentEnemy.name);
-        addMessage(`Vous avez vaincu ${isBoss ? 'le boss' : ''} ${currentEnemy.name} !`);
-        player.gold += currentEnemy.gold;
-        addMessage(`Vous gagnez ${currentEnemy.gold} pièces d'or !`);
-        gainXP(currentEnemy.xp);
-        if (isBoss) {
-            addMessage("Félicitations pour avoir vaincu un boss !");
-            const bonusGold = 100;
-            player.gold += bonusGold;
-            addMessage(`Bonus de boss : Vous gagnez ${bonusGold} pièces d'or supplémentaires !`);
-        }
-        updateQuestProgress(currentEnemy.name);
-        updateQuestProgress("gold", currentEnemy.gold);
-        currentEnemy = null;
-        updateStats();
-        return;
-    }
-    enemyAttack();
-    updateStats();
-}
-        function enemyAttack() {
-            const enemyDamage = Math.max(0, currentEnemy.attack - player.defense - Math.floor(Math.random() * 3));
-            player.health -= enemyDamage;
-            addMessage(`Le ${currentEnemy.name} vous inflige ${enemyDamage} points de dégâts !`);
-            updateStats();
-
-            if (player.health <= 0) {
-                addMessage("Game Over ! Vous avez été vaincu...");
-                disableButtons(true);
-            }
-        }
-
-        function heal() {
-            if (player.inventory["Potion de soin"] > 0) {
-                player.inventory["Potion de soin"]--;
-                const healAmount = 30;
-                player.health = Math.min(player.maxHealth, player.health + healAmount);
-                addMessage(`Vous utilisez une potion et récupérez ${healAmount} points de vie. Il vous reste ${player.inventory["Potion de soin"]} potions.`);
-                updateStats();
-                if (currentEnemy) enemyAttack();
-            } else {
-                addMessage("Vous n'avez plus de potions de soin !");
-            }
-        }
-
-        function useSkill() {
-            if (!currentEnemy) {
-                addMessage("Vous ne pouvez utiliser une compétence que pendant un combat !");
-                return;
-            }
-
-            const skill = player.skills[Math.floor(Math.random() * player.skills.length)];
-            switch (skill) {
-                case "Frappe puissante":
-                    const damage = player.attack * 2;
-                    currentEnemy.health -= damage;
-                    addMessage(`Vous utilisez Frappe puissante et infligez ${damage} points de dégâts !`);
-                    break;
-                case "Bouclier magique":
-                    player.defense += 5;
-                    addMessage("Vous activez Bouclier magique, augmentant votre défense de 5 points pour ce combat !");
-                    break;
-                case "Frappe éclair":
-                    const lightningDamage = Math.floor(player.attack * 1.5);
-                    currentEnemy.health -= lightningDamage;
-                    addMessage(`Vous utilisez Frappe éclair et infligez ${lightningDamage} points de dégâts !`);
-                    break;
-                case "Soin rapide":
-                    const healAmount = Math.floor(player.maxHealth * 0.3);
-                    player.health = Math.min(player.maxHealth, player.health + healAmount);
-                    addMessage(`Vous utilisez Soin rapide et récupérez ${healAmount} points de vie !`);
-                    break;
-            }
-
-            updateStats();
-            if (currentEnemy.health <= 0) {
-                addMessage(`Vous avez vaincu le ${currentEnemy.name} !`);
-                player.gold += currentEnemy.gold;
-                addMessage(`Vous gagnez ${currentEnemy.gold} pièces d'or !`);
-                gainXP(currentEnemy.xp);
-                updateQuestProgress(currentEnemy.name);
-                updateQuestProgress("gold", currentEnemy.gold);
-                currentEnemy = null;
-            } else {
-                enemyAttack();
-            }
-        }
-
-        function shop() {
-            const items = [
-                { name: "Potion de soin", cost: 20 },
-                { name: "Épée améliorée", cost: 50 },
-                { name: "Armure renforcée", cost: 50 }
-            ];
-
-            addMessage("Bienvenue dans la boutique ! Que voulez-vous acheter ?");
-            items.forEach(item => addMessage(`${item.name} - ${item.cost} or`));
-
-            const buyItem = (itemName) => {
-                const item = items.find(i => i.name === itemName);
-                if (player.gold >= item.cost) {
-                    player.gold -= item.cost;
-                    switch (itemName) {
-                        case "Potion de soin":
-                            player.inventory["Potion de soin"] = (player.inventory["Potion de soin"] || 0) + 1;
-                            addMessage("Vous achetez une potion de soin.");
-                            break;
-                        case "Épée améliorée":
-                            player.attack += 5;
-                            addMessage("Votre attaque augmente de 5 points !");
-                            break;
-                        case "Armure renforcée":
-                            player.defense += 5;
-                            addMessage("Votre défense augmente de 5 points !");
-                            break;
-                    }
-                    updateStats();
-                } else {
-                    addMessage("Vous n'avez pas assez d'or pour cet achat.");
-                }
-            };
-
-            // Simulation d'achat (à remplacer par une véritable interaction utilisateur)
-            setTimeout(() => buyItem("Potion de soin"), 1000);
-        }
-
-        function gainXP(amount) {
-            player.xp += amount;
-            addMessage(`Vous gagnez ${amount} points d'expérience !`);
-            if (player.xp >= player.nextLevelXp) {
-                levelUp();
-            }
-            updateStats();
-        }
-
-        function levelUp() {
-            player.level++;
-            player.xp -= player.nextLevelXp;
-            player.nextLevelXp = Math.floor(player.nextLevelXp * 1.5);
-            player.maxHealth += 20;
-            player.health = player.maxHealth;
-            player.attack += 5;
-            player.defense += 3;
-            addMessage(`Félicitations ! Vous atteignez le niveau ${player.level} !`);
-            addMessage("Votre santé maximale, votre attaque et votre défense ont augmenté !");
-            updateStats();
-        }
-
-        function updateQuestProgress(questType, amount = 1) {
-            activeQuests.forEach(quest => {
-                if ((quest.target && quest.target === questType) || 
-                    (quest.name === "Collecter de l'or" && questType === "gold") ||
-                    (quest.name === "Maître des compétences" && questType === "skill")) {
-                    quest.count += amount;
-                    if (quest.count >= quest.required) {
-                        completeQuest(quest);
-                    }
-                }
-            });
-            updateQuestDisplay();
-        }
-
-        function completeQuest(quest) {
-            addMessage(`Quête terminée : ${quest.name}`);
-            player.xp += quest.reward;
-            addMessage(`Vous gagnez ${quest.reward} XP !`);
-            activeQuests = activeQuests.filter(q => q.id !== quest.id);
-            updateStats();
-        }
-
-        function updateQuestDisplay() {
-            questsList.innerHTML = activeQuests.map(quest => 
-                `${quest.name}: ${quest.count}/${quest.required}`
-            ).join('<br>');
-        }
-
-  function addQuest() {
-            if (activeQuests.length < 3 && quests.length > 0) {
-                const newQuest = quests.shift();
-                activeQuests.push({...newQuest, count: 0});
-                addMessage(`Nouvelle quête : ${newQuest.name}`);
-                updateQuestDisplay();
-            }
-        }
-
-        function disableButtons(disabled) {
-            exploreButton.disabled = disabled;
-            attackButton.disabled = disabled;
-            healButton.disabled = disabled;
-            useSkillButton.disabled = disabled;
-            shopButton.disabled = disabled;
-            questButton.disabled = disabled;
-        }
-
-        exploreButton.addEventListener('click', explore);
-        attackButton.addEventListener('click', attack);
-        healButton.addEventListener('click', heal);
-        useSkillButton.addEventListener('click', useSkill);
-        shopButton.addEventListener('click', shop);
-        questButton.addEventListener('click', addQuest);
-
-        // Initialisation du jeu RPG
-        function initRPG() {
-            addMessage("Bienvenue dans Lebladex gam RPG !");
-            addMessage("Cliquez sur 'Explorer' pour commencer votre aventure, 'Boutique' pour acheter des objets, ou 'Quêtes' pour obtenir des missions.");
-            addQuest(); // Ajoute une quête initiale
-            updateStats();
-        }
-
-        // Initialisation du jeu RPG seulement quand la section "mobile" est active
-        document.querySelector('nav a[href="#mobile"]').addEventListener('click', function() {
-            setTimeout(initRPG, 100); // Petit délai pour s'assurer que la section est bien affichée
-        });
-
-        // Fin du script du jeu RPG
-
-        // Initialisation générale du site
-        window.onload = function() {
-            // Animation Matrix (déjà définie précédemment)
-            
-            // Autres initialisations si nécessaire
-        };
     </script>
 </body>
 </html>
