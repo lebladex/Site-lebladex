@@ -516,11 +516,9 @@ function attack() {
         addMessage("Il n'y a pas d'ennemi à attaquer !");
         return;
     }
-
     const playerDamage = Math.max(0, player.attack - Math.floor(Math.random() * 5));
     currentEnemy.health -= playerDamage;
     addMessage(`Vous infligez ${playerDamage} points de dégâts au ${currentEnemy.name} !`);
-
     if (currentEnemy.health <= 0) {
         const isBoss = bosses.some(boss => boss.name === currentEnemy.name);
         addMessage(`Vous avez vaincu ${isBoss ? 'le boss' : ''} ${currentEnemy.name} !`);
@@ -536,12 +534,12 @@ function attack() {
         updateQuestProgress(currentEnemy.name);
         updateQuestProgress("gold", currentEnemy.gold);
         currentEnemy = null;
+        updateStats();
         return;
     }
-
     enemyAttack();
+    updateStats();
 }
-
         function enemyAttack() {
             const enemyDamage = Math.max(0, currentEnemy.attack - player.defense - Math.floor(Math.random() * 3));
             player.health -= enemyDamage;
