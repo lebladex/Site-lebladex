@@ -36,6 +36,20 @@
             border-bottom: 2px solid #33ff33;
             position: relative;
             z-index: 2;
+            overflow: hidden;
+        }
+        .header-glow {
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(51, 255, 51, 0.2), transparent);
+            animation: header-glow 5s linear infinite;
+        }
+        @keyframes header-glow {
+            0% { left: -100%; }
+            100% { left: 100%; }
         }
         nav ul {
             list-style-type: none;
@@ -96,7 +110,6 @@
         section.active {
             display: block;
         }
-        /* Styles spécifiques au jeu RPG */
         #game-container {
             background-color: rgba(0, 0, 0, 0.8);
             border: 2px solid #33ff33;
@@ -166,6 +179,7 @@
     <canvas id="matrix-bg"></canvas>
     <div class="content-wrapper">
         <header>
+            <div class="header-glow"></div>
             <nav>
                 <ul>
                     <li><a href="#home">Accueil</a></li>
@@ -174,7 +188,7 @@
                         <div class="dropdown-content">
                             <a href="#imvu">Générateur de pseudo IMVU</a>
                             <a href="#hackeur">Générateur de pseudo hackeur stylé</a>
-                            <a href="#mobile">gam lebladex RPG</a>
+                            <a href="#mobile">Mobile Mayhem RPG</a>
                         </div>
                     </li>
                     <li class="dropdown">
@@ -219,7 +233,7 @@
             </section>
 
             <section id="mobile">
-                <h1>lebladex gam RPG</h1>
+                <h1>Mobile Mayhem RPG</h1>
                 <div id="game-container">
                     <div id="player-stats">
                         <span class="stat" id="health">Santé: 100/100</span>
@@ -281,7 +295,7 @@
     </div>
 
     <script>
-        // Script pour la navigation entre les pages
+        // Navigation
         document.querySelectorAll('nav a').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
                 e.preventDefault();
@@ -293,7 +307,7 @@
             });
         });
 
-        // Script pour l'animation Matrix
+        // Effet Matrix
         const canvas = document.getElementById('matrix-bg');
         const ctx = canvas.getContext('2d');
 
@@ -311,7 +325,7 @@
 
         const rainDrops = [];
 
-        for( let x = 0; x < columns; x++ ) {
+        for (let x = 0; x < columns; x++) {
             rainDrops[x] = 1;
         }
 
@@ -322,11 +336,11 @@
             ctx.fillStyle = '#0F0';
             ctx.font = fontSize + 'px monospace';
 
-            for(let i = 0; i < rainDrops.length; i++) {
+            for (let i = 0; i < rainDrops.length; i++) {
                 const text = alphabet.charAt(Math.floor(Math.random() * alphabet.length));
                 ctx.fillText(text, i*fontSize, rainDrops[i]*fontSize);
                 
-                if(rainDrops[i]*fontSize > canvas.height && Math.random() > 0.975){
+                if (rainDrops[i]*fontSize > canvas.height && Math.random() > 0.975) {
                     rainDrops[i] = 0;
                 }
                 rainDrops[i]++;
@@ -340,7 +354,7 @@
             canvas.height = window.innerHeight;
         });
 
-        // Fonction pour générer le pseudo IMVU
+        // Générateur de pseudo IMVU
         function generatePseudo() {
             const baseInput = document.getElementById('baseInput').value;
             const prefixes = ['xX', 'Xx', '_', '.', '-', '0', ''];
@@ -368,7 +382,7 @@
             document.getElementById('generatedPseudo').textContent = pseudo;
         }
 
-        // Code du jeu RPG
+        // Jeu RPG (suite)
         let player = {
             health: 100,
             maxHealth: 100,
@@ -386,7 +400,7 @@
 
         let currentEnemy = null;
 
- const enemies = [
+        const enemies = [
             { name: "Gobelin", health: 50, attack: 8, xp: 20, gold: 10 },
             { name: "Orc", health: 80, attack: 12, xp: 35, gold: 20 },
             { name: "Troll", health: 120, attack: 15, xp: 50, gold: 30 },
@@ -684,7 +698,7 @@
             updateQuestDisplay();
         }
 
-        function completeQuest(quest) {
+function completeQuest(quest) {
             addMessage(`Quête terminée : ${quest.name}`);
             player.xp += quest.reward;
             addMessage(`Vous gagnez ${quest.reward} XP !`);
@@ -698,7 +712,7 @@
             ).join('<br>');
         }
 
-  function addQuest() {
+        function addQuest() {
             if (activeQuests.length < 3 && quests.length > 0) {
                 const newQuest = quests.shift();
                 activeQuests.push({...newQuest, count: 0});
@@ -725,7 +739,7 @@
 
         // Initialisation du jeu RPG
         function initRPG() {
-            addMessage("Bienvenue dans lebladex gam RPG !");
+            addMessage("Bienvenue dans Mobile Mayhem RPG !");
             addMessage("Cliquez sur 'Explorer' pour commencer votre aventure, 'Boutique' pour acheter des objets, ou 'Quêtes' pour obtenir des missions.");
             addQuest(); // Ajoute une quête initiale
             updateStats();
@@ -736,11 +750,9 @@
             setTimeout(initRPG, 100); // Petit délai pour s'assurer que la section est bien affichée
         });
 
-        // Fin du script du jeu RPG
-
         // Initialisation générale du site
         window.onload = function() {
-            // Animation Matrix (déjà définie précédemment)
+            // L'animation Matrix est déjà gérée par le code précédent
             
             // Autres initialisations si nécessaire
         };
