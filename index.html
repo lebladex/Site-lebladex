@@ -36,20 +36,6 @@
             border-bottom: 2px solid #33ff33;
             position: relative;
             z-index: 2;
-            overflow: hidden;
-        }
-        .header-glow {
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(51, 255, 51, 0.2), transparent);
-            animation: header-glow 5s linear infinite;
-        }
-        @keyframes header-glow {
-            0% { left: -100%; }
-            100% { left: 100%; }
         }
         nav ul {
             list-style-type: none;
@@ -110,6 +96,7 @@
         section.active {
             display: block;
         }
+        /* Styles spécifiques au jeu RPG */
         #game-container {
             background-color: rgba(0, 0, 0, 0.8);
             border: 2px solid #33ff33;
@@ -179,7 +166,6 @@
     <canvas id="matrix-bg"></canvas>
     <div class="content-wrapper">
         <header>
-            <div class="header-glow"></div>
             <nav>
                 <ul>
                     <li><a href="#home">Accueil</a></li>
@@ -295,7 +281,7 @@
     </div>
 
     <script>
-        // Navigation
+        // Script pour la navigation entre les pages
         document.querySelectorAll('nav a').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
                 e.preventDefault();
@@ -307,7 +293,7 @@
             });
         });
 
-        // Effet Matrix
+        // Script pour l'animation Matrix
         const canvas = document.getElementById('matrix-bg');
         const ctx = canvas.getContext('2d');
 
@@ -325,7 +311,7 @@
 
         const rainDrops = [];
 
-        for (let x = 0; x < columns; x++) {
+        for( let x = 0; x < columns; x++ ) {
             rainDrops[x] = 1;
         }
 
@@ -336,11 +322,11 @@
             ctx.fillStyle = '#0F0';
             ctx.font = fontSize + 'px monospace';
 
-            for (let i = 0; i < rainDrops.length; i++) {
+            for(let i = 0; i < rainDrops.length; i++) {
                 const text = alphabet.charAt(Math.floor(Math.random() * alphabet.length));
                 ctx.fillText(text, i*fontSize, rainDrops[i]*fontSize);
                 
-                if (rainDrops[i]*fontSize > canvas.height && Math.random() > 0.975) {
+                if(rainDrops[i]*fontSize > canvas.height && Math.random() > 0.975){
                     rainDrops[i] = 0;
                 }
                 rainDrops[i]++;
@@ -354,7 +340,7 @@
             canvas.height = window.innerHeight;
         });
 
-        // Générateur de pseudo IMVU
+        // Fonction pour générer le pseudo IMVU
         function generatePseudo() {
             const baseInput = document.getElementById('baseInput').value;
             const prefixes = ['xX', 'Xx', '_', '.', '-', '0', ''];
@@ -382,7 +368,7 @@
             document.getElementById('generatedPseudo').textContent = pseudo;
         }
 
-        // Jeu RPG (suite)
+        // Code du jeu RPG
         let player = {
             health: 100,
             maxHealth: 100,
@@ -400,7 +386,7 @@
 
         let currentEnemy = null;
 
-        const enemies = [
+ const enemies = [
             { name: "Gobelin", health: 50, attack: 8, xp: 20, gold: 10 },
             { name: "Orc", health: 80, attack: 12, xp: 35, gold: 20 },
             { name: "Troll", health: 120, attack: 15, xp: 50, gold: 30 },
@@ -698,7 +684,7 @@
             updateQuestDisplay();
         }
 
-function completeQuest(quest) {
+        function completeQuest(quest) {
             addMessage(`Quête terminée : ${quest.name}`);
             player.xp += quest.reward;
             addMessage(`Vous gagnez ${quest.reward} XP !`);
@@ -712,7 +698,7 @@ function completeQuest(quest) {
             ).join('<br>');
         }
 
-        function addQuest() {
+  function addQuest() {
             if (activeQuests.length < 3 && quests.length > 0) {
                 const newQuest = quests.shift();
                 activeQuests.push({...newQuest, count: 0});
@@ -750,9 +736,11 @@ function completeQuest(quest) {
             setTimeout(initRPG, 100); // Petit délai pour s'assurer que la section est bien affichée
         });
 
+        // Fin du script du jeu RPG
+
         // Initialisation générale du site
         window.onload = function() {
-            // L'animation Matrix est déjà gérée par le code précédent
+            // Animation Matrix (déjà définie précédemment)
             
             // Autres initialisations si nécessaire
         };
