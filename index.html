@@ -511,7 +511,7 @@
             addMessage(`Un boss apparaît : ${currentEnemy.name} ! Préparez-vous à un combat difficile !`);
         }
 
-  function attack() {
+function attack() {
     if (!currentEnemy) {
         addMessage("Il n'y a pas d'ennemi à attaquer !");
         return;
@@ -541,31 +541,6 @@
 
     enemyAttack();
 }
-
-            const playerDamage = Math.max(0, player.attack - Math.floor(Math.random() * 5));
-            currentEnemy.health -= playerDamage;
-            addMessage(`Vous infligez ${playerDamage} points de dégâts au ${currentEnemy.name} !`);
-
-            if (currentEnemy.health <= 0) {
-                const isBoss = bosses.some(boss => boss.name === currentEnemy.name);
-                addMessage(`Vous avez vaincu ${isBoss ? 'le boss' : ''} ${currentEnemy.name} !`);
-                player.gold += currentEnemy.gold;
-                addMessage(`Vous gagnez ${currentEnemy.gold} pièces d'or !`);
-                gainXP(currentEnemy.xp);
-                if (isBoss) {
-                    addMessage("Félicitations pour avoir vaincu un boss !");
-                    const bonusGold = 100;
-                    player.gold += bonusGold;
-                    addMessage(`Bonus de boss : Vous gagnez ${bonusGold} pièces d'or supplémentaires !`);
-                }
-                updateQuestProgress(currentEnemy.name);
-                updateQuestProgress("gold", currentEnemy.gold);
-                currentEnemy = null;
-                return;
-            }
-
-            enemyAttack();
-        }
 
         function enemyAttack() {
             const enemyDamage = Math.max(0, currentEnemy.attack - player.defense - Math.floor(Math.random() * 3));
