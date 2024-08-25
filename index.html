@@ -4,12 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LeBladex Gaming Universe</title>
+    <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
     <style>
         /* Le style existant reste le même */
         @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
-          <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
-    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
-    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+        
         body, html {
             height: 100%;
             margin: 0;
@@ -51,15 +52,9 @@
             animation: pixelAnim 3s infinite;
         }
         @keyframes pixelAnim {
-            0% {
-                opacity: 0.1;
-            }
-            50% {
-                opacity: 0.5;
-            }
-            100% {
-                opacity: 0.1;
-            }
+            0% { opacity: 0.1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 0.1; }
         }
         header {
             background-color: rgba(0, 0, 0, 0.8);
@@ -70,18 +65,9 @@
             z-index: 2;
         }
         @keyframes headerGlow {
-            0% {
-                box-shadow: 0 0 0px #33ff33;
-                opacity: 0;
-            }
-            50% {
-                box-shadow: 0 0 20px #33ff33;
-                opacity: 1;
-            }
-            100% {
-                box-shadow: 0 0 10px #33ff33;
-                opacity: 1;
-            }
+            0% { box-shadow: 0 0 0px #33ff33; opacity: 0; }
+            50% { box-shadow: 0 0 20px #33ff33; opacity: 1; }
+            100% { box-shadow: 0 0 10px #33ff33; opacity: 1; }
         }
         nav ul {
             list-style-type: none;
@@ -91,18 +77,10 @@
             animation: navAppear 1.5s ease-in-out;
         }
         @keyframes navAppear {
-            0% {
-                transform: translateY(-20px);
-                opacity: 0;
-            }
-            100% {
-                transform: translateY(0);
-                opacity: 1;
-            }
+            0% { transform: translateY(-20px); opacity: 0; }
+            100% { transform: translateY(0); opacity: 1; }
         }
-        nav ul li {
-            margin: 0 15px;
-        }
+        nav ul li { margin: 0 15px; }
         nav ul li a {
             color: #33ff33;
             text-decoration: none;
@@ -125,12 +103,8 @@
             background-color: #ff3333;
             transition: width 0.3s ease;
         }
-        nav ul li a:hover::after {
-            width: 100%;
-        }
-        .dropdown {
-            position: relative;
-        }
+        nav ul li a:hover::after { width: 100%; }
+        .dropdown { position: relative; }
         .dropdown-content {
             display: none;
             position: absolute;
@@ -146,9 +120,7 @@
             text-decoration: none;
             display: block;
         }
-        .dropdown:hover .dropdown-content {
-            display: block;
-        }
+        .dropdown:hover .dropdown-content { display: block; }
         main {
             padding: 2rem;
             text-align: center;
@@ -204,15 +176,8 @@
             font-size: 0.8em;
             line-height: 20px;
         }
-        
-        section {
-            display: none; /* Toutes les sections sont masquées par défaut */
-        }
-        section.active {
-            display: block; /* La section active est affichée */
-        }
-
-        /* Nouveaux styles pour le générateur de pseudo IMVU */
+        section { display: none; }
+        section.active { display: block; }
         .generator-container {
             background-color: rgba(0, 0, 0, 0.7);
             border: 2px solid #33ff33;
@@ -260,12 +225,8 @@
             animation: glow 1.5s ease-in-out infinite alternate;
         }
         @keyframes glow {
-            from {
-                text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #33ff33, 0 0 20px #33ff33, 0 0 35px #33ff33, 0 0 40px #33ff33, 0 0 50px #33ff33;
-            }
-            to {
-                text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #33ff33, 0 0 40px #33ff33, 0 0 70px #33ff33, 0 0 80px #33ff33, 0 0 100px #33ff33;
-            }
+            from { text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #33ff33, 0 0 20px #33ff33, 0 0 35px #33ff33, 0 0 40px #33ff33, 0 0 50px #33ff33; }
+            to { text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #33ff33, 0 0 40px #33ff33, 0 0 70px #33ff33, 0 0 80px #33ff33, 0 0 100px #33ff33; }
         }
     </style>
 </head>
@@ -327,10 +288,10 @@
             </section>
 
             <section id="mobile">
-    <h1>Mobile Mayhem</h1>
-    <p>Plongez dans le chaos du gaming mobile avec notre jeu Cyber Quest !</p>
-    <div id="cyber-quest-game"></div>
-</section>
+                <h1>Mobile Mayhem</h1>
+                <p>Plongez dans le chaos du gaming mobile avec notre jeu Cyber Quest !</p>
+                <div id="cyber-quest-game"></div>
+            </section>
 
             <section id="manga">
                 <h1>Manga</h1>
@@ -411,7 +372,7 @@
 
         const rainDrops = [];
 
-        for( let x = 0; x < columns; x++ ) {
+               for( let x = 0; x < columns; x++ ) {
             rainDrops[x] = 1;
         }
 
@@ -473,187 +434,188 @@
             document.getElementById('generatedPseudo').textContent = pseudo;
         }
     </script>
-<script type="text/babel">
-const initialPlayerState = {
-  name: 'Hacker',
-  level: 1,
-  hp: 100,
-  maxHp: 100,
-  attack: 10,
-  defense: 5,
-  exp: 0,
-  credits: 0
-};
 
-const enemies = [
-  { name: 'Virus', hp: 30, attack: 5, defense: 2, exp: 20, credits: 10 },
-  { name: 'Trojan', hp: 50, attack: 8, defense: 4, exp: 40, credits: 20 },
-  { name: 'Firewall', hp: 80, attack: 12, defense: 8, exp: 80, credits: 40 }
-];
+    <script type="text/babel">
+        const initialPlayerState = {
+            name: 'Hacker',
+            level: 1,
+            hp: 100,
+            maxHp: 100,
+            attack: 10,
+            defense: 5,
+            exp: 0,
+            credits: 0
+        };
 
-const locations = [
-  { name: 'Le Réseau', description: 'Un labyrinthe de données et de connexions.' },
-  { name: 'La Zone Sombre', description: 'Un endroit dangereux rempli de logiciels malveillants.' },
-  { name: 'Le Nexus', description: 'Le cœur battant du cyberespace.' }
-];
+        const enemies = [
+            { name: 'Virus', hp: 30, attack: 5, defense: 2, exp: 20, credits: 10 },
+            { name: 'Trojan', hp: 50, attack: 8, defense: 4, exp: 40, credits: 20 },
+            { name: 'Firewall', hp: 80, attack: 12, defense: 8, exp: 80, credits: 40 }
+        ];
 
-const upgradeItems = [
-  { name: 'Mise à jour du CPU', cost: 50, effect: { attack: 5 } },
-  { name: 'Pare-feu amélioré', cost: 50, effect: { defense: 5 } },
-  { name: 'Boost de mémoire', cost: 100, effect: { maxHp: 20 } }
-];
+        const locations = [
+            { name: 'Le Réseau', description: 'Un labyrinthe de données et de connexions.' },
+            { name: 'La Zone Sombre', description: 'Un endroit dangereux rempli de logiciels malveillants.' },
+            { name: 'Le Nexus', description: 'Le cœur battant du cyberespace.' }
+        ];
 
-function CyberQuest() {
-  const [player, setPlayer] = React.useState(initialPlayerState);
-  const [enemy, setEnemy] = React.useState(null);
-  const [location, setLocation] = React.useState(locations[0]);
-  const [combatLog, setCombatLog] = React.useState([]);
-  const [gameState, setGameState] = React.useState('explore');
+        const upgradeItems = [
+            { name: 'Mise à jour du CPU', cost: 50, effect: { attack: 5 } },
+            { name: 'Pare-feu amélioré', cost: 50, effect: { defense: 5 } },
+            { name: 'Boost de mémoire', cost: 100, effect: { maxHp: 20 } }
+        ];
 
-  const addLogMessage = (message) => {
-    setCombatLog(prevLog => [message, ...prevLog].slice(0, 5));
-  };
+        function CyberQuest() {
+            const [player, setPlayer] = React.useState(initialPlayerState);
+            const [enemy, setEnemy] = React.useState(null);
+            const [location, setLocation] = React.useState(locations[0]);
+            const [combatLog, setCombatLog] = React.useState([]);
+            const [gameState, setGameState] = React.useState('explore');
 
-  const attack = () => {
-    if (!enemy) return;
+            const addLogMessage = (message) => {
+                setCombatLog(prevLog => [message, ...prevLog].slice(0, 5));
+            };
 
-    const playerDamage = Math.max(0, player.attack - enemy.defense);
-    const enemyDamage = Math.max(0, enemy.attack - player.defense);
+            const attack = () => {
+                if (!enemy) return;
 
-    setEnemy(prevEnemy => ({ ...prevEnemy, hp: Math.max(0, prevEnemy.hp - playerDamage) }));
-    setPlayer(prevPlayer => ({ ...prevPlayer, hp: Math.max(0, prevPlayer.hp - enemyDamage) }));
+                const playerDamage = Math.max(0, player.attack - enemy.defense);
+                const enemyDamage = Math.max(0, enemy.attack - player.defense);
 
-    addLogMessage(`Vous infligez ${playerDamage} dégâts. ${enemy.name} vous inflige ${enemyDamage} dégâts.`);
+                setEnemy(prevEnemy => ({ ...prevEnemy, hp: Math.max(0, prevEnemy.hp - playerDamage) }));
+                setPlayer(prevPlayer => ({ ...prevPlayer, hp: Math.max(0, prevPlayer.hp - enemyDamage) }));
 
-    if (enemy.hp - playerDamage <= 0) {
-      addLogMessage(`Vous avez vaincu ${enemy.name}!`);
-      setPlayer(prevPlayer => ({
-        ...prevPlayer,
-        exp: prevPlayer.exp + enemy.exp,
-        credits: prevPlayer.credits + enemy.credits
-      }));
-      setEnemy(null);
-      setGameState('explore');
-    }
+                addLogMessage(`Vous infligez ${playerDamage} dégâts. ${enemy.name} vous inflige ${enemyDamage} dégâts.`);
 
-    if (player.hp - enemyDamage <= 0) {
-      addLogMessage('Game Over! Vous avez été vaincu.');
-      setGameState('gameOver');
-    }
-  };
+                if (enemy.hp - playerDamage <= 0) {
+                    addLogMessage(`Vous avez vaincu ${enemy.name}!`);
+                    setPlayer(prevPlayer => ({
+                        ...prevPlayer,
+                        exp: prevPlayer.exp + enemy.exp,
+                        credits: prevPlayer.credits + enemy.credits
+                    }));
+                    setEnemy(null);
+                    setGameState('explore');
+                }
 
-  const explore = () => {
-    const randomEnemy = enemies[Math.floor(Math.random() * enemies.length)];
-    setEnemy({ ...randomEnemy });
-    setGameState('combat');
-    addLogMessage(`Vous rencontrez un ${randomEnemy.name}!`);
-  };
+                if (player.hp - enemyDamage <= 0) {
+                    addLogMessage('Game Over! Vous avez été vaincu.');
+                    setGameState('gameOver');
+                }
+            };
 
-  const changeLocation = () => {
-    const newLocation = locations[(locations.indexOf(location) + 1) % locations.length];
-    setLocation(newLocation);
-    addLogMessage(`Vous vous déplacez vers ${newLocation.name}.`);
-  };
+            const explore = () => {
+                const randomEnemy = enemies[Math.floor(Math.random() * enemies.length)];
+                setEnemy({ ...randomEnemy });
+                setGameState('combat');
+                addLogMessage(`Vous rencontrez un ${randomEnemy.name}!`);
+            };
 
-  const buyUpgrade = (item) => {
-    if (player.credits >= item.cost) {
-      setPlayer(prevPlayer => ({
-        ...prevPlayer,
-        ...Object.fromEntries(
-          Object.entries(item.effect).map(([key, value]) => [key, prevPlayer[key] + value])
-        ),
-        credits: prevPlayer.credits - item.cost
-      }));
-      addLogMessage(`Vous avez acheté ${item.name}.`);
-    } else {
-      addLogMessage("Vous n'avez pas assez de crédits.");
-    }
-  };
+            const changeLocation = () => {
+                const newLocation = locations[(locations.indexOf(location) + 1) % locations.length];
+                setLocation(newLocation);
+                addLogMessage(`Vous vous déplacez vers ${newLocation.name}.`);
+            };
 
-  React.useEffect(() => {
-    if (player.exp >= player.level * 100) {
-      setPlayer(prevPlayer => ({
-        ...prevPlayer,
-        level: prevPlayer.level + 1,
-        attack: prevPlayer.attack + 2,
-        defense: prevPlayer.defense + 1,
-        maxHp: prevPlayer.maxHp + 10,
-        hp: prevPlayer.maxHp + 10,
-        exp: 0
-      }));
-      addLogMessage(`Niveau supérieur! Vous êtes maintenant niveau ${player.level + 1}.`);
-    }
-  }, [player.exp, player.level]);
+            const buyUpgrade = (item) => {
+                if (player.credits >= item.cost) {
+                    setPlayer(prevPlayer => ({
+                        ...prevPlayer,
+                        ...Object.fromEntries(
+                            Object.entries(item.effect).map(([key, value]) => [key, prevPlayer[key] + value])
+                        ),
+                        credits: prevPlayer.credits - item.cost
+                    }));
+                    addLogMessage(`Vous avez acheté ${item.name}.`);
+                } else {
+                    addLogMessage("Vous n'avez pas assez de crédits.");
+                }
+            };
 
-  return (
-    <div className="w-full max-w-2xl mx-auto bg-black border-green-500" style={{color: '#33ff33', border: '2px solid #33ff33', padding: '20px', borderRadius: '10px'}}>
-      <h2 className="text-center text-2xl font-bold mb-4">Cyber Quest</h2>
-      <div className="grid grid-cols-2 gap-4 mb-4">
-        <div>
-          <p>Niveau: {player.level}</p>
-          <p>Crédits: {player.credits}</p>
-        </div>
-        <div>
-          <p>Location: {location.name}</p>
-          <p>{location.description}</p>
-        </div>
-      </div>
-      <div className="mb-4">
-        <p className="mb-1">HP: {player.hp}/{player.maxHp}</p>
-        <div style={{backgroundColor: '#1a1a1a', height: '20px', border: '1px solid #33ff33'}}>
-          <div style={{width: `${(player.hp / player.maxHp) * 100}%`, backgroundColor: '#33ff33', height: '100%'}}></div>
-        </div>
-      </div>
-      <div className="mb-4">
-        <p className="mb-1">EXP: {player.exp}/{player.level * 100}</p>
-        <div style={{backgroundColor: '#1a1a1a', height: '20px', border: '1px solid #33ff33'}}>
-          <div style={{width: `${(player.exp / (player.level * 100)) * 100}%`, backgroundColor: '#33ff33', height: '100%'}}></div>
-        </div>
-      </div>
-      {enemy && (
-        <div className="mb-4">
-          <p className="mb-1" style={{color: '#ff3333'}}>{enemy.name} HP: {enemy.hp}</p>
-          <div style={{backgroundColor: '#1a1a1a', height: '20px', border: '1px solid #ff3333'}}>
-            <div style={{width: `${(enemy.hp / enemies.find(e => e.name === enemy.name).hp) * 100}%`, backgroundColor: '#ff3333', height: '100%'}}></div>
-          </div>
-        </div>
-      )}
-      <div className="flex justify-between mb-4">
-        {gameState === 'explore' ? (
-          <>
-            <button onClick={explore} style={{backgroundColor: '#33ff33', color: 'black', padding: '10px', borderRadius: '5px'}}>Explorer</button>
-            <button onClick={changeLocation} style={{backgroundColor: '#33ff33', color: 'black', padding: '10px', borderRadius: '5px'}}>Changer de lieu</button>
-          </>
-        ) : gameState === 'combat' ? (
-          <>
-            <button onClick={attack} style={{backgroundColor: '#ff3333', color: 'white', padding: '10px', borderRadius: '5px'}}>Attaquer</button>
-            <button onClick={() => setGameState('explore')} style={{backgroundColor: '#ffff33', color: 'black', padding: '10px', borderRadius: '5px'}}>Fuir</button>
-          </>
-        ) : (
-          <button onClick={() => { setPlayer(initialPlayerState); setGameState('explore'); }} style={{backgroundColor: '#33ff33', color: 'black', padding: '10px', borderRadius: '5px'}}>Nouvelle partie</button>
-        )}
-      </div>
-      <div className="mb-4">
-        <h3 className="mb-2" style={{color: '#ff3333'}}>Améliorations:</h3>
-        <div className="flex justify-between">
-          {upgradeItems.map((item, index) => (
-            <button key={index} onClick={() => buyUpgrade(item)} disabled={player.credits < item.cost} style={{backgroundColor: '#33ffff', color: 'black', padding: '5px', borderRadius: '5px', opacity: player.credits < item.cost ? 0.5 : 1}}>
-              {item.name} ({item.cost} crédits)
-            </button>
-          ))}
-        </div>
-      </div>
-      <div>
-        <h3 className="mb-2" style={{color: '#ff3333'}}>Journal de combat:</h3>
-        {combatLog.map((log, index) => (
-          <p key={index}>{log}</p>
-        ))}
-      </div>
-    </div>
-  );
-}
+            React.useEffect(() => {
+                if (player.exp >= player.level * 100) {
+                    setPlayer(prevPlayer => ({
+                        ...prevPlayer,
+                        level: prevPlayer.level + 1,
+                        attack: prevPlayer.attack + 2,
+                        defense: prevPlayer.defense + 1,
+                        maxHp: prevPlayer.maxHp + 10,
+                        hp: prevPlayer.maxHp + 10,
+                        exp: 0
+                    }));
+                    addLogMessage(`Niveau supérieur! Vous êtes maintenant niveau ${player.level + 1}.`);
+                }
+            }, [player.exp, player.level]);
 
-ReactDOM.render(<CyberQuest />, document.getElementById('cyber-quest-game'));
-</script>
+            return (
+                <div className="w-full max-w-2xl mx-auto bg-black border-green-500" style={{color: '#33ff33', border: '2px solid #33ff33', padding: '20px', borderRadius: '10px'}}>
+                    <h2 className="text-center text-2xl font-bold mb-4">Cyber Quest</h2>
+                    <div className="grid grid-cols-2 gap-4 mb-4">
+                        <div>
+                            <p>Niveau: {player.level}</p>
+                            <p>Crédits: {player.credits}</p>
+                        </div>
+                        <div>
+                            <p>Location: {location.name}</p>
+                            <p>{location.description}</p>
+                        </div>
+                    </div>
+                    <div className="mb-4">
+                        <p className="mb-1">HP: {player.hp}/{player.maxHp}</p>
+                        <div style={{backgroundColor: '#1a1a1a', height: '20px', border: '1px solid #33ff33'}}>
+                            <div style={{width: `${(player.hp / player.maxHp) * 100}%`, backgroundColor: '#33ff33', height: '100%'}}></div>
+                        </div>
+                    </div>
+                    <div className="mb-4">
+                        <p className="mb-1">EXP: {player.exp}/{player.level * 100}</p>
+                        <div style={{backgroundColor: '#1a1a1a', height: '20px', border: '1px solid #33ff33'}}>
+                            <div style={{width: `${(player.exp / (player.level * 100)) * 100}%`, backgroundColor: '#33ff33', height: '100%'}}></div>
+                        </div>
+                    </div>
+                    {enemy && (
+                        <div className="mb-4">
+                            <p className="mb-1" style={{color: '#ff3333'}}>{enemy.name} HP: {enemy.hp}</p>
+                            <div style={{backgroundColor: '#1a1a1a', height: '20px', border: '1px solid #ff3333'}}>
+                                <div style={{width: `${(enemy.hp / enemies.find(e => e.name === enemy.name).hp) * 100}%`, backgroundColor: '#ff3333', height: '100%'}}></div>
+                            </div>
+                        </div>
+                    )}
+                    <div className="flex justify-between mb-4">
+                        {gameState === 'explore' ? (
+                            <>
+                                <button onClick={explore} style={{backgroundColor: '#33ff33', color: 'black', padding: '10px', borderRadius: '5px'}}>Explorer</button>
+                                <button onClick={changeLocation} style={{backgroundColor: '#33ff33', color: 'black', padding: '10px', borderRadius: '5px'}}>Changer de lieu</button>
+                            </>
+                        ) : gameState === 'combat' ? (
+                            <>
+                                <button onClick={attack} style={{backgroundColor: '#ff3333', color: 'white', padding: '10px', borderRadius: '5px'}}>Attaquer</button>
+                                <button onClick={() => setGameState('explore')} style={{backgroundColor: '#ffff33', color: 'black', padding: '10px', borderRadius: '5px'}}>Fuir</button>
+                            </>
+                        ) : (
+                            <button onClick={() => { setPlayer(initialPlayerState); setGameState('explore'); }} style={{backgroundColor: '#33ff33', color: 'black', padding: '10px', borderRadius: '5px'}}>Nouvelle partie</button>
+                        )}
+                    </div>
+                    <div className="mb-4">
+                        <h3 className="mb-2" style={{color: '#ff3333'}}>Améliorations:</h3>
+                        <div className="flex justify-between">
+                            {upgradeItems.map((item, index) => (
+                                <button key={index} onClick={() => buyUpgrade(item)} disabled={player.credits < item.cost} style={{backgroundColor: '#33ffff', color: 'black', padding: '5px', borderRadius: '5px', opacity: player.credits < item.cost ? 0.5 : 1}}>
+                                    {item.name} ({item.cost} crédits)
+                                </button>
+                            ))}
+                        </div>
+                    </div>
+                    <div>
+                        <h3 className="mb-2" style={{color: '#ff3333'}}>Journal de combat:</h3>
+                        {combatLog.map((log, index) => (
+                            <p key={index}>{log}</p>
+                        ))}
+                    </div>
+                </div>
+            );
+        }
+
+        ReactDOM.render(<CyberQuest />, document.getElementById('cyber-quest-game'));
+    </script>
 </body>
 </html>
