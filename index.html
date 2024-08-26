@@ -760,6 +760,91 @@
         document.getElementById('name').value = '';
         document.getElementById('comment').value = '';
     });
+         function handleHiddenCommand(input) {
+        if (input.startsWith('/clear')) {
+            const parts = input.split(' ');
+            if (parts.length === 1) {
+                // Effacer tous les messages
+                localStorage.removeItem('lebladexComments');
+                displayComments([]);
+                return true;
+            } else if (parts.length === 2) {
+                // Effacer un message spécifique
+                const index = parseInt(parts[1]);
+                const comments = loadComments();
+                if (!isNaN(index) && index >= 0 && index < comments.length) {
+                    comments.splice(index, 1);
+                    saveComments(comments);
+                    displayComments(comments);
+                }
+                return true;
+            }
+        } else if (input === '/showIndices') {
+            toggleIndicesVisibility();
+            return true;
+        }
+        return false;
+    }
+
+    function toggleIndicesVisibility() {
+        const indices = document.querySelectorAll('.comment small');
+        indices.forEach(index => {
+            index.style.display = index.style.display === 'none' ? 'block' : 'none';
+        });
+    }
+
+    // Modifiez la fonction displayComments existante
+    function displayComments(comments) {
+        const commentsList = document.getElementById('commentsList');
+        commentsList.innerHTML = '';
+        comments.forEach((comment, index) => {
+            const commentElement = document.createElement('div');
+            commentElement.classList.add('comment');
+            commentElement.innerHTML = `
+                <strong>${comment.name}</strong>
+                <p>${comment.text}</p>
+                <small style="display: none;">Index: ${index}</small>
+            `;
+            commentsList.appendChild(commentElement);
+        });
+        commentsList.scrollTop = commentsList.scrollHeight;
+    }
+
+    // Modifiez la gestion du formulaire existant
+    document.getElementById('commentForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const name = document.getElementById('name').value;
+        let comment = document.getElementById('comment').value;
+        
+        // Vérifier si c'est une commande cachée
+        if (handleHiddenCommand(comment)) {
+            // Réinitialiser le formulaire sans ajouter de commentaire
+            document.getElementById('name').value = '';
+            document.getElementById('comment').value = '';
+            return;
+        }
+        
+        // Le reste du code pour ajouter un commentaire normal reste inchangé
+        // Appliquer des animations aléatoires aux emojis dans le commentaire
+        gamingHackerEmojis.forEach(emoji => {
+            const regex = new RegExp(emoji, 'g');
+            comment = comment.replace(regex, applyRandomAnimation(emoji));
+        });
+        
+        const newComment = { name, text: comment };
+        
+        // Charger les commentaires existants, ajouter le nouveau, et sauvegarder
+        const comments = loadComments();
+        comments.push(newComment);
+        saveComments(comments);
+        
+        // Afficher tous les commentaires, y compris le nouveau
+        displayComments(comments);
+        
+        // Réinitialiser le formulaire
+        document.getElementById('name').value = '';
+        document.getElementB
 </script>
 </body>
 </html>
