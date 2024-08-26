@@ -588,66 +588,100 @@
             document.getElementById('generatedPseudo').textContent = pseudo;
         }
 
-        const gamingHackerEmojis = ['🎮', '💻', '🕹️', '🔓', '🚀', '👾', '🔧', '🛠️', '🔥', '💯', '🏆', '🎯', '🆙', '💪', '🧠', '📊', '💾', '🖥️', '⚡', '🔐', '🔑', '💡', '🕵️', '🦾', '🤖', '🎲', '🃏', '🌐', '📡', '🔬', '⚔️', '🛡️', '🏹', '💣', '🧨', '🔮'];
+       const gamingHackerEmojis = ['🎮', '💻', '🕹️', '🔓', '🚀', '👾', '🔧', '🛠️', '🔥', '💯', '🏆', '🎯', '🆙', '💪', '🧠', '📊', '💾', '🖥️', '⚡', '🔐', '🔑', '💡', '🕵️', '🦾', '🤖', '🎲', '🃏', '🌐', '📡', '🔬', '⚔️', '🛡️', '🏹', '💣', '🧨', '🔮'];
         
-        const emojiDropdown = document.getElementById('emojiDropdown');
-        gamingHackerEmojis.forEach(emoji => {
-            const button = document.createElement('button');
-            button.textContent = emoji;
-            button.addEventListener('click', (e) => {
-                const commentTextarea = document.getElementById('comment');
-                commentTextarea.value += emoji;
-            });
-            emojiDropdown.appendChild(button);
+    const emojiDropdown = document.getElementById('emojiDropdown');
+    gamingHackerEmojis.forEach(emoji => {
+        const button = document.createElement('button');
+        button.textContent = emoji;
+        button.addEventListener('click', (e) => {
+            const commentTextarea = document.getElementById('comment');
+            commentTextarea.value += emoji;
         });
+        emojiDropdown.appendChild(button);
+    });
 
-        function toggleEmoji() {
-            document.getElementById("emojiDropdown").classList.toggle("show");
-        }
+    function toggleEmoji() {
+        document.getElementById("emojiDropdown").classList.toggle("show");
+    }
 
-        window.onclick = function(event) {
-            if (!event.target.matches('.emoji-btn')) {
-                var dropdowns = document.getElementsByClassName("emoji-content");
-                for (var i = 0; i < dropdowns.length; i++) {
-                    var openDropdown = dropdowns[i];
-                    if (openDropdown.classList.contains('show')) {
-                        openDropdown.classList.remove('show');
-                    }
+    window.onclick = function(event) {
+        if (!event.target.matches('.emoji-btn')) {
+            var dropdowns = document.getElementsByClassName("emoji-content");
+            for (var i = 0; i < dropdowns.length; i++) {
+                var openDropdown = dropdowns[i];
+                if (openDropdown.classList.contains('show')) {
+                    openDropdown.classList.remove('show');
                 }
             }
         }
+    }
 
-        function applyRandomAnimation(emoji) {
-            const animations = ['rotate-emoji', 'pulse-emoji', 'float-emoji'];
-            const randomAnimation = animations[Math.floor(Math.random() * animations.length)];
-            return `<span class="${randomAnimation}">${emoji}</span>`;
-        }
+    function applyRandomAnimation(emoji) {
+        const animations = ['rotate-emoji', 'pulse-emoji', 'float-emoji'];
+        const randomAnimation = animations[Math.floor(Math.random() * animations.length)];
+        return `<span class="${randomAnimation}">${emoji}</span>`;
+    }
 
-        document.getElementById('commentForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const name = document.getElementById('name').value;
-            let comment = document.getElementById('comment').value;
-            
-            // Appliquer des animations aléatoires aux emojis dans le commentaire
-            gamingHackerEmojis.forEach(emoji => {
-                const regex = new RegExp(emoji, 'g');
-                comment = comment.replace(regex, applyRandomAnimation(emoji));
-            });
-            
+    // Fonction pour sauvegarder les commentaires dans le localStorage
+    function saveComments(comments) {
+        localStorage.setItem('lebladexComments', JSON.stringify(comments));
+    }
+
+    // Fonction pour charger les commentaires depuis le localStorage
+    function loadComments() {
+        const savedComments = localStorage.getItem('lebladexComments');
+        return savedComments ? JSON.parse(savedComments) : [];
+    }
+
+    // Fonction pour afficher les commentaires
+    function displayComments(comments) {
+        const commentsList = document.getElementById('commentsList');
+        commentsList.innerHTML = '';
+        comments.forEach(comment => {
             const commentElement = document.createElement('div');
             commentElement.classList.add('comment');
             commentElement.innerHTML = `
-                <strong>${name}</strong>
-                <p>${comment}</p>
+                <strong>${comment.name}</strong>
+                <p>${comment.text}</p>
             `;
-            
-            document.getElementById('commentsList').prepend(commentElement);
-            
-            // Réinitialiser le formulaire
-            document.getElementById('name').value = '';
-            document.getElementById('comment').value = '';
+            commentsList.prepend(commentElement);
         });
-    </script>
+    }
+
+    // Charger et afficher les commentaires au chargement de la page
+    document.addEventListener('DOMContentLoaded', () => {
+        const comments = loadComments();
+        displayComments(comments);
+    });
+
+    // Modifier la gestion du formulaire pour sauvegarder les nouveaux commentaires
+    document.getElementById('commentForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const name = document.getElementById('name').value;
+        let comment = document.getElementById('comment').value;
+        
+        // Appliquer des animations aléatoires aux emojis dans le commentaire
+        gamingHackerEmojis.forEach(emoji => {
+            const regex = new RegExp(emoji, 'g');
+            comment = comment.replace(regex, applyRandomAnimation(emoji));
+        });
+        
+        const newComment = { name, text: comment };
+        
+        // Charger les commentaires existants, ajouter le nouveau, et sauvegarder
+        const comments = loadComments();
+        comments.push(newComment);
+        saveComments(comments);
+        
+        // Afficher tous les commentaires, y compris le nouveau
+        displayComments(comments);
+        
+        // Réinitialiser le formulaire
+        document.getElementById('name').value = '';
+        document.getElementById('comment').value = '';
+    });
+</script>
 </body>
 </html>
