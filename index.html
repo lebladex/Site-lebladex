@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LeBladex Gaming Universe</title>
     <style>
-        /* Le style existant reste le même */
         @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
         
         body, html {
@@ -49,15 +48,9 @@
             animation: pixelAnim 3s infinite;
         }
         @keyframes pixelAnim {
-            0% {
-                opacity: 0.1;
-            }
-            50% {
-                opacity: 0.5;
-            }
-            100% {
-                opacity: 0.1;
-            }
+            0% { opacity: 0.1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 0.1; }
         }
         header {
             background-color: rgba(0, 0, 0, 0.8);
@@ -68,18 +61,9 @@
             z-index: 2;
         }
         @keyframes headerGlow {
-            0% {
-                box-shadow: 0 0 0px #33ff33;
-                opacity: 0;
-            }
-            50% {
-                box-shadow: 0 0 20px #33ff33;
-                opacity: 1;
-            }
-            100% {
-                box-shadow: 0 0 10px #33ff33;
-                opacity: 1;
-            }
+            0% { box-shadow: 0 0 0px #33ff33; opacity: 0; }
+            50% { box-shadow: 0 0 20px #33ff33; opacity: 1; }
+            100% { box-shadow: 0 0 10px #33ff33; opacity: 1; }
         }
         nav ul {
             list-style-type: none;
@@ -89,18 +73,10 @@
             animation: navAppear 1.5s ease-in-out;
         }
         @keyframes navAppear {
-            0% {
-                transform: translateY(-20px);
-                opacity: 0;
-            }
-            100% {
-                transform: translateY(0);
-                opacity: 1;
-            }
+            0% { transform: translateY(-20px); opacity: 0; }
+            100% { transform: translateY(0); opacity: 1; }
         }
-        nav ul li {
-            margin: 0 15px;
-        }
+        nav ul li { margin: 0 15px; }
         nav ul li a {
             color: #33ff33;
             text-decoration: none;
@@ -123,12 +99,8 @@
             background-color: #ff3333;
             transition: width 0.3s ease;
         }
-        nav ul li a:hover::after {
-            width: 100%;
-        }
-        .dropdown {
-            position: relative;
-        }
+        nav ul li a:hover::after { width: 100%; }
+        .dropdown { position: relative; }
         .dropdown-content {
             display: none;
             position: absolute;
@@ -144,13 +116,8 @@
             text-decoration: none;
             display: block;
         }
-        .dropdown:hover .dropdown-content {
-            display: block;
-        }
-        main {
-            padding: 2rem;
-            text-align: center;
-        }
+        .dropdown:hover .dropdown-content { display: block; }
+        main { padding: 2rem; text-align: center; }
         h1 {
             font-family: 'Press Start 2P', cursive;
             color: #33ff33;
@@ -202,15 +169,8 @@
             font-size: 0.8em;
             line-height: 20px;
         }
-        
-        section {
-            display: none; /* Toutes les sections sont masquées par défaut */
-        }
-        section.active {
-            display: block; /* La section active est affichée */
-        }
-
-        /* Nouveaux styles pour le générateur de pseudo IMVU */
+        section { display: none; }
+        section.active { display: block; }
         .generator-container {
             background-color: rgba(0, 0, 0, 0.7);
             border: 2px solid #33ff33;
@@ -265,114 +225,111 @@
                 text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #33ff33, 0 0 40px #33ff33, 0 0 70px #33ff33, 0 0 80px #33ff33, 0 0 100px #33ff33;
             }
         }
-<style>
-    #forum {
-        font-family: 'Courier New', monospace;
-        max-width: 800px;
-        margin: 0 auto;
-        padding: 20px;
-        background-color: #0a0a0a;
-        color: #00ff00;
-    }
-    .comment {
-        border: 1px solid #00ff00;
-        padding: 10px;
-        margin-bottom: 10px;
-        background-color: #0f0f0f;
-    }
-    .comment-form {
-        margin-bottom: 20px;
-    }
-    .comment-form textarea {
-        width: 100%;
-        height: 100px;
-        background-color: #1a1a1a;
-        color: #00ff00;
-        border: 1px solid #00ff00;
-    }
-    .existing-comments {
-        border: 2px solid #00ffff;
-        padding: 15px;
-        margin-bottom: 20px;
-        background-color: #0f1a1a;
-    }
-    .existing-comments h2 {
-        color: #00ffff;
-        margin-top: 0;
-    }
-    input, button {
-        background-color: #1a1a1a;
-        color: #00ff00;
-        border: 1px solid #00ff00;
-        padding: 5px;
-        margin-bottom: 10px;
-    }
-    .emoji-dropdown {
-        position: relative;
-        display: inline-block;
-    }
-    .emoji-btn {
-        background-color: #1a1a1a;
-        color: #00ff00;
-        border: 1px solid #00ff00;
-        padding: 5px 10px;
-        cursor: pointer;
-    }
-    .emoji-content {
-        display: none;
-        position: absolute;
-        background-color: #0f0f0f;
-        width: 280px;
-        box-shadow: 0px 8px 16px 0px rgba(0,255,0,0.2);
-        z-index: 1;
-        padding: 10px;
-        border: 1px solid #00ff00;
-    }
-    .emoji-content button {
-        background: none;
-        border: none;
-        font-size: 24px;
-        cursor: pointer;
-        padding: 5px;
-        margin: 2px;
-        transition: all 0.3s ease;
-    }
-    .emoji-content button:hover {
-        transform: rotate(15deg) scale(1.2);
-    }
-    .emoji-content button:active {
-        transform: scale(0.8);
-    }
-    .show {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-around;
-    }
-    @keyframes rotate {
-        0% { transform: rotate(0deg); }
-        100% { transform: rotate(360deg); }
-    }
-    @keyframes pulse {
-        0%, 100% { transform: scale(1); }
-        50% { transform: scale(1.2); }
-    }
-    @keyframes float {
-        0%, 100% { transform: translateY(0); }
-        50% { transform: translateY(-5px); }
-    }
-    .rotate-emoji {
-        display: inline-block;
-        animation: rotate 5s linear infinite;
-    }
-    .pulse-emoji {
-        display: inline-block;
-        animation: pulse 2s ease infinite;
-    }
-    .float-emoji {
-        display: inline-block;
-        animation: float 3s ease-in-out infinite;
-    }
-</style>
+        #forum {
+            font-family: 'Courier New', monospace;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #0a0a0a;
+            color: #00ff00;
+        }
+        .comment {
+            border: 1px solid #00ff00;
+            padding: 10px;
+            margin-bottom: 10px;
+            background-color: #0f0f0f;
+        }
+        .comment-form { margin-bottom: 20px; }
+        .comment-form textarea {
+            width: 100%;
+            height: 100px;
+            background-color: #1a1a1a;
+            color: #00ff00;
+            border: 1px solid #00ff00;
+        }
+        .existing-comments {
+            border: 2px solid #00ffff;
+            padding: 15px;
+            margin-bottom: 20px;
+            background-color: #0f1a1a;
+        }
+        .existing-comments h2 {
+            color: #00ffff;
+            margin-top: 0;
+        }
+        input, button {
+            background-color: #1a1a1a;
+            color: #00ff00;
+            border: 1px solid #00ff00;
+            padding: 5px;
+            margin-bottom: 10px;
+        }
+        .emoji-dropdown {
+            position: relative;
+            display: inline-block;
+        }
+        .emoji-btn {
+            background-color: #1a1a1a;
+            color: #00ff00;
+            border: 1px solid #00ff00;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+        .emoji-content {
+            display: none;
+            position: absolute;
+            background-color: #0f0f0f;
+            width: 280px;
+            box-shadow: 0px 8px 16px 0px rgba(0,255,0,0.2);
+            z-index: 1;
+            padding: 10px;
+            border: 1px solid #00ff00;
+        }
+        .emoji-content button {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            padding: 5px;
+            margin: 2px;
+            transition: all 0.3s ease;
+        }
+        .emoji-content button:hover {
+            transform: rotate(15deg) scale(1.2);
+        }
+        .emoji-content button:active {
+            transform: scale(0.8);
+        }
+        .show {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+        }
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+        .rotate-emoji {
+            display: inline-block;
+            animation: rotate 5s linear infinite;
+        }
+        .pulse-emoji {
+            display: inline-block;
+            animation: pulse 2s ease infinite;
+        }
+        .float-emoji {
+            display: inline-block;
+            animation: float 3s ease-in-out infinite;
+        }
+    </style>
 </head>
 <body>
     <canvas id="matrix-bg"></canvas>
@@ -403,35 +360,31 @@
             </nav>
         </header>
         <main>
-<section id="home" class="active">
-    <h1>LeBladex Gaming Universe</h1>
-    <p class="welcome-message">Bienvenue sur la page de LeBladex, Gamer Extraordinaire !</p>
-    <p>Préparez-vous à plonger dans un monde de pixels, de polygones et de pages manga !</p>
-    
-    <div class="bio">
-        <h2>Bio du Gamer</h2>
-        <p>Salut à tous ! Je suis LeBladex, un passionné de jeux vidéo depuis que j'ai posé mes mains sur un clavier pour la première fois. Avec plus de 20 ans d'expérience dans divers genres, du FPS aux RPG en passant par les MOBA, je vis et respire le gaming.</p>
-        <p>Mon setup : Un PC surpuissant, 2 écrans. Prêt pour tous les défis !</p>
-        
-        <h3>Mes Compétences Gaming</h3>
-        <div class="stat-bar">
-            <div class="stat-fill" style="width: 95%;"></div>
-            <span class="stat-text">FPS Mastery: 95%</span>
-        </div>
-        <div class="stat-bar">
-            <div class="stat-fill" style="width: 88%;"></div>
-            <span class="stat-text">RPG Lore Knowledge: 88%</span>
-        </div>
-        <div class="stat-bar">
-            <div class="stat-fill" style="width: 92%;"></div>
-            <span class="stat-text">Speedrunning: 92%</span>
-        </div>
-        <div class="stat-bar">
-            <div class="stat-fill" style="width: 85%;"></div>
-            <span class="stat-text">Esports Tactics: 85%</span>
-        </div>
-    </div>
-</section>
+            <section id="home" class="active">
+                <h1>LeBladex Gaming Universe</h1>
+                <p class="welcome-message">Bienvenue sur la page de LeBladex, Gamer Extraordinaire !</p>
+                <p>Préparez-vous à plonger dans un monde de pixels, de polygones et de pages manga !</p>
+                
+                <div class="bio">
+                    <h2>Bio du Gamer</h2>
+                    <p>Salut à tous ! Je suis LeBladex, un passionné de jeux vidéo depuis que j'ai posé mes mains sur un clavier pour la première fois. Avec plus de 20 ans d'expérience dans divers genres, du FPS aux RPG en passant par les MOBA, je vis et respire le gaming.</p>
+                    <p>Mon setup : Un PC surpuissant, 2 écrans. Prêt pour tous les défis !</p>
+                    
+                    <h3>Mes Compétences Gaming</h3>
+                    <div class="stat-bar">
+                        <div class="stat-fill" style="width: 95%;"></div>
+                        <span class="stat-text">FPS Mastery: 95%</span>
+                    </div>
+                    <div class="stat-bar">
+                        <div class="stat-fill" style="width: 88%;"></div>
+                        <span class="stat-text">RPG Lore Knowledge: 88%</span>
+                    </div>
+                    <div class="stat-bar">
+                        <div class="stat-fill" style="width: 85%;"></div>
+                        <span class="stat-text">Esports Tactics: 85%</span>
+                    </div>
+                </div>
+            </section>
             
             <section id="application">
                 <h1>Application</h1>
@@ -480,44 +433,46 @@
                 <p>L'amour, l'amitié et la vie à travers les yeux des héroïnes.</p>
             </section>
 
-<section id="forum" class="active">
-    <h1>💻 Arena (Forum) 🎮</h1>
-    
-    <div class="existing-comments">
-        <h2>Messages existants</h2>
-        <div class="comment">
-            <strong>Xx_G4m3r_xX</strong>
-            <p>Ce site est <span class="pulse-emoji">🔥</span>! Tellement de hacks utiles! <span class="rotate-emoji">🕹️</span> Je suis <span class="float-emoji">🆙</span> pour plus d'infos! <span class="rotate-emoji">🚀</span></p>
-        </div>
-        <div class="comment">
-            <strong>H4ck3rM4n</strong>
-            <p>Quelqu'un a des infos sur les derniers exploits? <span class="pulse-emoji">🔓</span><span class="rotate-emoji">💻</span> On pourrait faire un <span class="float-emoji">🧠</span>storm! <span class="pulse-emoji">💡</span></p>
-        </div>
-        <div class="comment">
-            <strong>N00bCrusher</strong>
-            <p>GG à tous les devs! <span class="rotate-emoji">🏆</span> Ce site level up mes skills! <span class="pulse-emoji">🎮</span><span class="float-emoji">💪</span> Continuez comme ça! <span class="rotate-emoji">🔧</span></p>
-        </div>
-    </div>
-    
-    <div class="comment-form">
-        <h2>Ajouter un commentaire</h2>
-        <form id="commentForm">
-            <label for="name">Pseudo :</label><br>
-            <input type="text" id="name" name="name" required><br>
-            <label for="comment">Message :</label><br>
-            <textarea id="comment" name="comment" required></textarea><br>
-            <div class="emoji-dropdown">
-                <button type="button" class="emoji-btn" onclick="toggleEmoji()">+ emoji</button>
-                <div id="emojiDropdown" class="emoji-content"></div>
-            </div>
-            <button type="submit">Envoyer 🚀</button>
-        </form>
-    </div>
+            <section id="forum" class="active">
+                <h1>💻 Arena (Forum) 🎮</h1>
+                
+                <div class="existing-comments">
+                    <h2>Messages existants</h2>
+                    <div class="comment">
+                        <strong>Xx_G4m3r_xX</strong>
+                        <p>Ce site est <span class="pulse-emoji">🔥</span>! Tellement de hacks utiles! <span class="rotate-emoji">🕹️</span> Je suis <span class="float-emoji">🆙</span> pour plus d'infos! <span class="rotate-emoji">🚀</span></p>
+                    </div>
+                    <div class="comment">
+                        <strong>H4ck3rM4n</strong>
+                        <p>Quelqu'un a des infos sur les derniers exploits? <span class="pulse-emoji">🔓</span><span class="rotate-emoji">💻</span> On pourrait faire un <span class="float-emoji">🧠</span>storm! <span class="pulse-emoji">💡</span></p>
+                    </div>
+                    <div class="comment">
+                        <strong>N00bCrusher</strong>
+                        <p>GG à tous les devs! <span class="rotate-emoji">🏆</span> Ce site level up mes skills! <span class="pulse-emoji">🎮</span><span class="float-emoji">💪</span> Continuez comme ça! <span class="rotate-emoji">🔧</span></p>
+                    </div>
+                </div>
+                
+                <div class="comment-form">
+                    <h2>Ajouter un commentaire</h2>
+                    <form id="commentForm">
+                        <label for="name">Pseudo :</label><br>
+                        <input type="text" id="name" name="name" required><br>
+                        <label for="comment">Message :</label><br>
+                        <textarea id="comment" name="comment" required></textarea><br>
+                        <div class="emoji-dropdown">
+                            <button type="button" class="emoji-btn" onclick="toggleEmoji()">+ emoji</button>
+                            <div id="emojiDropdown" class="emoji-content"></div>
+                        </div>
+                        <button type="submit">Envoyer 🚀</button>
+                    </form>
+                </div>
 
-    <div id="commentsList">
-        <!-- Les nouveaux commentaires seront ajoutés ici dynamiquement -->
+                <div id="commentsList">
+                    <!-- Les nouveaux commentaires seront ajoutés ici dynamiquement -->
+                </div>
+            </section>
+        </main>
     </div>
-</section>
 
     <script>
         // Script pour la navigation entre les pages
@@ -632,68 +587,67 @@
             
             document.getElementById('generatedPseudo').textContent = pseudo;
         }
-    </script>
-           <script>
-    const gamingHackerEmojis = ['🎮', '💻', '🕹️', '🔓', '🚀', '👾', '🔧', '🛠️', '🔥', '💯', '🏆', '🎯', '🆙', '💪', '🧠', '📊', '💾', '🖥️', '⚡', '🔐', '🔑', '💡', '🕵️', '🦾', '🤖', '🎲', '🃏', '🌐', '📡', '🔬', '⚔️', '🛡️', '🏹', '💣', '🧨', '🔮'];
-    
-    const emojiDropdown = document.getElementById('emojiDropdown');
-    gamingHackerEmojis.forEach(emoji => {
-        const button = document.createElement('button');
-        button.textContent = emoji;
-        button.addEventListener('click', (e) => {
-            const commentTextarea = document.getElementById('comment');
-            commentTextarea.value += emoji;
+
+        const gamingHackerEmojis = ['🎮', '💻', '🕹️', '🔓', '🚀', '👾', '🔧', '🛠️', '🔥', '💯', '🏆', '🎯', '🆙', '💪', '🧠', '📊', '💾', '🖥️', '⚡', '🔐', '🔑', '💡', '🕵️', '🦾', '🤖', '🎲', '🃏', '🌐', '📡', '🔬', '⚔️', '🛡️', '🏹', '💣', '🧨', '🔮'];
+        
+        const emojiDropdown = document.getElementById('emojiDropdown');
+        gamingHackerEmojis.forEach(emoji => {
+            const button = document.createElement('button');
+            button.textContent = emoji;
+            button.addEventListener('click', (e) => {
+                const commentTextarea = document.getElementById('comment');
+                commentTextarea.value += emoji;
+            });
+            emojiDropdown.appendChild(button);
         });
-        emojiDropdown.appendChild(button);
-    });
 
-    function toggleEmoji() {
-        document.getElementById("emojiDropdown").classList.toggle("show");
-    }
+        function toggleEmoji() {
+            document.getElementById("emojiDropdown").classList.toggle("show");
+        }
 
-    window.onclick = function(event) {
-        if (!event.target.matches('.emoji-btn')) {
-            var dropdowns = document.getElementsByClassName("emoji-content");
-            for (var i = 0; i < dropdowns.length; i++) {
-                var openDropdown = dropdowns[i];
-                if (openDropdown.classList.contains('show')) {
-                    openDropdown.classList.remove('show');
+        window.onclick = function(event) {
+            if (!event.target.matches('.emoji-btn')) {
+                var dropdowns = document.getElementsByClassName("emoji-content");
+                for (var i = 0; i < dropdowns.length; i++) {
+                    var openDropdown = dropdowns[i];
+                    if (openDropdown.classList.contains('show')) {
+                        openDropdown.classList.remove('show');
+                    }
                 }
             }
         }
-    }
 
-    function applyRandomAnimation(emoji) {
-        const animations = ['rotate-emoji', 'pulse-emoji', 'float-emoji'];
-        const randomAnimation = animations[Math.floor(Math.random() * animations.length)];
-        return `<span class="${randomAnimation}">${emoji}</span>`;
-    }
+        function applyRandomAnimation(emoji) {
+            const animations = ['rotate-emoji', 'pulse-emoji', 'float-emoji'];
+            const randomAnimation = animations[Math.floor(Math.random() * animations.length)];
+            return `<span class="${randomAnimation}">${emoji}</span>`;
+        }
 
-    document.getElementById('commentForm').addEventListener('submit', function(e) {
-        e.preventDefault();
-        
-        const name = document.getElementById('name').value;
-        let comment = document.getElementById('comment').value;
-        
-        // Appliquer des animations aléatoires aux emojis dans le commentaire
-        gamingHackerEmojis.forEach(emoji => {
-            const regex = new RegExp(emoji, 'g');
-            comment = comment.replace(regex, applyRandomAnimation(emoji));
+        document.getElementById('commentForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('name').value;
+            let comment = document.getElementById('comment').value;
+            
+            // Appliquer des animations aléatoires aux emojis dans le commentaire
+            gamingHackerEmojis.forEach(emoji => {
+                const regex = new RegExp(emoji, 'g');
+                comment = comment.replace(regex, applyRandomAnimation(emoji));
+            });
+            
+            const commentElement = document.createElement('div');
+            commentElement.classList.add('comment');
+            commentElement.innerHTML = `
+                <strong>${name}</strong>
+                <p>${comment}</p>
+            `;
+            
+            document.getElementById('commentsList').prepend(commentElement);
+            
+            // Réinitialiser le formulaire
+            document.getElementById('name').value = '';
+            document.getElementById('comment').value = '';
         });
-        
-        const commentElement = document.createElement('div');
-        commentElement.classList.add('comment');
-        commentElement.innerHTML = `
-            <strong>${name}</strong>
-            <p>${comment}</p>
-        `;
-        
-        document.getElementById('commentsList').prepend(commentElement);
-        
-        // Réinitialiser le formulaire
-        document.getElementById('name').value = '';
-        document.getElementById('comment').value = '';
-    });
-</script> 
+    </script>
 </body>
 </html>
