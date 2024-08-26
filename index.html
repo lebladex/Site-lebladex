@@ -606,245 +606,148 @@
             document.getElementById('generatedPseudo').textContent = pseudo;
         }
 
-       const gamingHackerEmojis = ['🎮', '💻', '🕹️', '🔓', '🚀', '👾', '🔧', '🛠️', '🔥', '💯', '🏆', '🎯', '🆙', '💪', '🧠', '📊', '💾', '🖥️', '⚡', '🔐', '🔑', '💡', '🕵️', '🦾', '🤖', '🎲', '🃏', '🌐', '📡', '🔬', '⚔️', '🛡️', '🏹', '💣', '🧨', '🔮'];
-        
-    const emojiDropdown = document.getElementById('emojiDropdown');
-    gamingHackerEmojis.forEach(emoji => {
-        const button = document.createElement('button');
-        button.textContent = emoji;
-        button.addEventListener('click', (e) => {
-            const commentTextarea = document.getElementById('comment');
-            commentTextarea.value += emoji;
-        });
-        emojiDropdown.appendChild(button);
+// Liste des emojis gaming et hacker
+const gamingHackerEmojis = ['🎮', '💻', '🕹️', '🔓', '🚀', '👾', '🔧', '🛠️', '🔥', '💯', '🏆', '🎯', '🆙', '💪', '🧠', '📊', '💾', '🖥️', '⚡', '🔐', '🔑', '💡', '🕵️', '🦾', '🤖', '🎲', '🃏', '🌐', '📡', '🔬', '⚔️', '🛡️', '🏹', '💣', '🧨', '🔮'];
+
+// Fonction pour sauvegarder les commentaires dans le localStorage
+function saveComments(comments) {
+    localStorage.setItem('lebladexComments', JSON.stringify(comments));
+}
+
+// Fonction pour charger les commentaires depuis le localStorage
+function loadComments() {
+    const savedComments = localStorage.getItem('lebladexComments');
+    return savedComments ? JSON.parse(savedComments) : [];
+}
+
+// Fonction pour afficher les commentaires
+function displayComments(comments) {
+    const commentsList = document.getElementById('commentsList');
+    commentsList.innerHTML = '';
+    comments.forEach((comment, index) => {
+        const commentElement = document.createElement('div');
+        commentElement.classList.add('comment');
+        commentElement.innerHTML = `
+            <strong>${comment.name}</strong>
+            <p>${comment.text}</p>
+            <small style="display: none;">Index: ${index}</small>
+        `;
+        commentsList.appendChild(commentElement);
     });
+    commentsList.scrollTop = commentsList.scrollHeight;
+}
 
-    function toggleEmoji() {
-        document.getElementById("emojiDropdown").classList.toggle("show");
-    }
+// Fonction pour appliquer une animation aléatoire à un emoji
+function applyRandomAnimation(emoji) {
+    const animations = ['rotate-emoji', 'pulse-emoji', 'float-emoji'];
+    const randomAnimation = animations[Math.floor(Math.random() * animations.length)];
+    return `<span class="${randomAnimation}">${emoji}</span>`;
+}
 
-    window.onclick = function(event) {
-        if (!event.target.matches('.emoji-btn')) {
-            var dropdowns = document.getElementsByClassName("emoji-content");
-            for (var i = 0; i < dropdowns.length; i++) {
-                var openDropdown = dropdowns[i];
-                if (openDropdown.classList.contains('show')) {
-                    openDropdown.classList.remove('show');
-                }
+// Fonction pour gérer les commandes cachées
+function handleHiddenCommand(input) {
+    if (input.startsWith('/clear')) {
+        const parts = input.split(' ');
+        if (parts.length === 1) {
+            // Effacer tous les messages
+            localStorage.removeItem('lebladexComments');
+            displayComments([]);
+            return true;
+        } else if (parts.length === 2) {
+            // Effacer un message spécifique
+            const index = parseInt(parts[1]);
+            const comments = loadComments();
+            if (!isNaN(index) && index >= 0 && index < comments.length) {
+                comments.splice(index, 1);
+                saveComments(comments);
+                displayComments(comments);
             }
-        }
-    }
-
-    function applyRandomAnimation(emoji) {
-        const animations = ['rotate-emoji', 'pulse-emoji', 'float-emoji'];
-        const randomAnimation = animations[Math.floor(Math.random() * animations.length)];
-        return `<span class="${randomAnimation}">${emoji}</span>`;
-    }
-
-    // Fonction pour sauvegarder les commentaires dans le localStorage
-    function saveComments(comments) {
-        localStorage.setItem('lebladexComments', JSON.stringify(comments));
-    }
-
-    // Fonction pour charger les commentaires depuis le localStorage
-    function loadComments() {
-        const savedComments = localStorage.getItem('lebladexComments');
-        return savedComments ? JSON.parse(savedComments) : [];
-    }
-
-    // Fonction pour afficher les commentaires
-    function displayComments(comments) {
-        const commentsList = document.getElementById('commentsList');
-        commentsList.innerHTML = '';
-        comments.forEach(comment => {
-            const commentElement = document.createElement('div');
-            commentElement.classList.add('comment');
-            commentElement.innerHTML = `
-                <strong>${comment.name}</strong>
-                <p>${comment.text}</p>
-            `;
-            commentsList.prepend(commentElement);
-        });
-    }
-
-    // Charger et afficher les commentaires au chargement de la page
-    document.addEventListener('DOMContentLoaded', () => {
-        const comments = loadComments();
-        displayComments(comments);
-    });
-
-    // Modifier la gestion du formulaire pour sauvegarder les nouveaux commentaires
-    document.getElementById('commentForm').addEventListener('submit', function(e) {
-        e.preventDefault();
-        
-        const name = document.getElementById('name').value;
-        let comment = document.getElementById('comment').value;
-        
-        // Appliquer des animations aléatoires aux emojis dans le commentaire
-        gamingHackerEmojis.forEach(emoji => {
-            const regex = new RegExp(emoji, 'g');
-            comment = comment.replace(regex, applyRandomAnimation(emoji));
-        });
-        
-        const newComment = { name, text: comment };
-        
-        // Charger les commentaires existants, ajouter le nouveau, et sauvegarder
-        const comments = loadComments();
-        comments.push(newComment);
-        saveComments(comments);
-        
-        // Afficher tous les commentaires, y compris le nouveau
-        displayComments(comments);
-        
-        // Réinitialiser le formulaire
-        document.getElementById('name').value = '';
-        document.getElementById('comment').value = '';
-    });
-        function saveComments(comments) {
-        localStorage.setItem('lebladexComments', JSON.stringify(comments));
-    }
-
-    // Fonction pour charger les commentaires depuis le localStorage
-    function loadComments() {
-        const savedComments = localStorage.getItem('lebladexComments');
-        return savedComments ? JSON.parse(savedComments) : [];
-    }
-
-    // Fonction pour afficher les commentaires
-    function displayComments(comments) {
-        const commentsList = document.getElementById('commentsList');
-        commentsList.innerHTML = '';
-        comments.forEach(comment => {
-            const commentElement = document.createElement('div');
-            commentElement.classList.add('comment');
-            commentElement.innerHTML = `
-                <strong>${comment.name}</strong>
-                <p>${comment.text}</p>
-            `;
-            commentsList.appendChild(commentElement);
-        });
-        // Faire défiler jusqu'au dernier commentaire
-        commentsList.scrollTop = commentsList.scrollHeight;
-    }
-
-    // Charger et afficher les commentaires au chargement de la page
-    document.addEventListener('DOMContentLoaded', () => {
-        const comments = loadComments();
-        displayComments(comments);
-    });
-
-    // Modifier la gestion du formulaire pour sauvegarder les nouveaux commentaires
-    document.getElementById('commentForm').addEventListener('submit', function(e) {
-        e.preventDefault();
-        
-        const name = document.getElementById('name').value;
-        let comment = document.getElementById('comment').value;
-        
-        // Appliquer des animations aléatoires aux emojis dans le commentaire
-        gamingHackerEmojis.forEach(emoji => {
-            const regex = new RegExp(emoji, 'g');
-            comment = comment.replace(regex, applyRandomAnimation(emoji));
-        });
-        
-        const newComment = { name, text: comment };
-        
-        // Charger les commentaires existants, ajouter le nouveau, et sauvegarder
-        const comments = loadComments();
-        comments.push(newComment);
-        saveComments(comments);
-        
-        // Afficher tous les commentaires, y compris le nouveau
-        displayComments(comments);
-        
-        // Réinitialiser le formulaire
-        document.getElementById('name').value = '';
-        document.getElementById('comment').value = '';
-    });
-         function handleHiddenCommand(input) {
-        if (input.startsWith('/clear')) {
-            const parts = input.split(' ');
-            if (parts.length === 1) {
-                // Effacer tous les messages
-                localStorage.removeItem('lebladexComments');
-                displayComments([]);
-                return true;
-            } else if (parts.length === 2) {
-                // Effacer un message spécifique
-                const index = parseInt(parts[1]);
-                const comments = loadComments();
-                if (!isNaN(index) && index >= 0 && index < comments.length) {
-                    comments.splice(index, 1);
-                    saveComments(comments);
-                    displayComments(comments);
-                }
-                return true;
-            }
-        } else if (input === '/showIndices') {
-            toggleIndicesVisibility();
             return true;
         }
-        return false;
+    } else if (input === '/showIndices') {
+        toggleIndicesVisibility();
+        return true;
     }
+    return false;
+}
 
-    function toggleIndicesVisibility() {
-        const indices = document.querySelectorAll('.comment small');
-        indices.forEach(index => {
-            index.style.display = index.style.display === 'none' ? 'block' : 'none';
-        });
-    }
+// Fonction pour basculer la visibilité des indices
+function toggleIndicesVisibility() {
+    const indices = document.querySelectorAll('.comment small');
+    indices.forEach(index => {
+        index.style.display = index.style.display === 'none' ? 'inline' : 'none';
+    });
+}
 
-    // Modifiez la fonction displayComments existante
-    function displayComments(comments) {
-        const commentsList = document.getElementById('commentsList');
-        commentsList.innerHTML = '';
-        comments.forEach((comment, index) => {
-            const commentElement = document.createElement('div');
-            commentElement.classList.add('comment');
-            commentElement.innerHTML = `
-                <strong>${comment.name}</strong>
-                <p>${comment.text}</p>
-                <small style="display: none;">Index: ${index}</small>
-            `;
-            commentsList.appendChild(commentElement);
-        });
-        commentsList.scrollTop = commentsList.scrollHeight;
-    }
+// Initialisation du menu déroulant d'emojis
+const emojiDropdown = document.getElementById('emojiDropdown');
+gamingHackerEmojis.forEach(emoji => {
+    const button = document.createElement('button');
+    button.textContent = emoji;
+    button.addEventListener('click', (e) => {
+        const commentTextarea = document.getElementById('comment');
+        commentTextarea.value += emoji;
+    });
+    emojiDropdown.appendChild(button);
+});
 
-    // Modifiez la gestion du formulaire existant
-    document.getElementById('commentForm').addEventListener('submit', function(e) {
-        e.preventDefault();
-        
-        const name = document.getElementById('name').value;
-        let comment = document.getElementById('comment').value;
-        
-        // Vérifier si c'est une commande cachée
-        if (handleHiddenCommand(comment)) {
-            // Réinitialiser le formulaire sans ajouter de commentaire
-            document.getElementById('name').value = '';
-            document.getElementById('comment').value = '';
-            return;
+function toggleEmoji() {
+    document.getElementById("emojiDropdown").classList.toggle("show");
+}
+
+window.onclick = function(event) {
+    if (!event.target.matches('.emoji-btn')) {
+        var dropdowns = document.getElementsByClassName("emoji-content");
+        for (var i = 0; i < dropdowns.length; i++) {
+            var openDropdown = dropdowns[i];
+            if (openDropdown.classList.contains('show')) {
+                openDropdown.classList.remove('show');
+            }
         }
-        
-        // Le reste du code pour ajouter un commentaire normal reste inchangé
-        // Appliquer des animations aléatoires aux emojis dans le commentaire
-        gamingHackerEmojis.forEach(emoji => {
-            const regex = new RegExp(emoji, 'g');
-            comment = comment.replace(regex, applyRandomAnimation(emoji));
-        });
-        
-        const newComment = { name, text: comment };
-        
-        // Charger les commentaires existants, ajouter le nouveau, et sauvegarder
-        const comments = loadComments();
-        comments.push(newComment);
-        saveComments(comments);
-        
-        // Afficher tous les commentaires, y compris le nouveau
-        displayComments(comments);
-        
-        // Réinitialiser le formulaire
+    }
+}
+
+// Chargement initial des commentaires
+document.addEventListener('DOMContentLoaded', () => {
+    const comments = loadComments();
+    displayComments(comments);
+});
+
+// Gestion du formulaire de commentaire
+document.getElementById('commentForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    const name = document.getElementById('name').value;
+    let comment = document.getElementById('comment').value;
+    
+    // Vérifier si c'est une commande cachée
+    if (handleHiddenCommand(comment)) {
+        // Réinitialiser le formulaire sans ajouter de commentaire
         document.getElementById('name').value = '';
-        document.getElementB
+        document.getElementById('comment').value = '';
+        return;
+    }
+    
+    // Appliquer des animations aléatoires aux emojis dans le commentaire
+    gamingHackerEmojis.forEach(emoji => {
+        const regex = new RegExp(emoji, 'g');
+        comment = comment.replace(regex, applyRandomAnimation(emoji));
+    });
+    
+    const newComment = { name, text: comment };
+    
+    // Charger les commentaires existants, ajouter le nouveau, et sauvegarder
+    const comments = loadComments();
+    comments.push(newComment);
+    saveComments(comments);
+    
+    // Afficher tous les commentaires, y compris le nouveau
+    displayComments(comments);
+    
+    // Réinitialiser le formulaire
+    document.getElementById('name').value = '';
+    document.getElementById('comment').value = '';
+});
 </script>
 </body>
 </html>
