@@ -329,7 +329,38 @@
             display: inline-block;
             animation: float 3s ease-in-out infinite;
         }
-    </style>
+    .comments-container {
+        max-height: 400px; /* Ajustez cette valeur selon vos besoins */
+        overflow-y: auto;
+        border: 1px solid #33ff33;
+        padding: 10px;
+        background-color: rgba(0, 0, 0, 0.5);
+    }
+
+    .comments-container::-webkit-scrollbar {
+        width: 10px;
+    }
+
+    .comments-container::-webkit-scrollbar-track {
+        background: #0a0a0a;
+    }
+
+    .comments-container::-webkit-scrollbar-thumb {
+        background: #33ff33;
+        border-radius: 5px;
+    }
+
+    .comments-container::-webkit-scrollbar-thumb:hover {
+        background: #ff3333;
+    }
+
+    .comment {
+        margin-bottom: 10px;
+        padding: 10px;
+        background-color: rgba(51, 255, 51, 0.1);
+        border-radius: 5px;
+    }
+</style>
 </head>
 <body>
     <canvas id="matrix-bg"></canvas>
@@ -433,44 +464,31 @@
                 <p>L'amour, l'amitié et la vie à travers les yeux des héroïnes.</p>
             </section>
 
-            <section id="forum" class="active">
-                <h1>💻 lebladex commentaire 🎮</h1>
-                
-                <div class="existing-comments">
-                    <h2>Messages existants</h2>
-                    <div class="comment">
-                        <strong>Xx_G4m3r_xX</strong>
-                        <p>Ce site est <span class="pulse-emoji">🔥</span>! Tellement de hacks utiles! <span class="rotate-emoji">🕹️</span> Je suis <span class="float-emoji">🆙</span> pour plus d'infos! <span class="rotate-emoji">🚀</span></p>
-                    </div>
-                    <div class="comment">
-                        <strong>H4ck3rM4n</strong>
-                        <p>Quelqu'un a des infos sur les derniers exploits? <span class="pulse-emoji">🔓</span><span class="rotate-emoji">💻</span> On pourrait faire un <span class="float-emoji">🧠</span>storm! <span class="pulse-emoji">💡</span></p>
-                    </div>
-                    <div class="comment">
-                        <strong>N00bCrusher</strong>
-                        <p>GG à tous les devs! <span class="rotate-emoji">🏆</span> Ce site level up mes skills! <span class="pulse-emoji">🎮</span><span class="float-emoji">💪</span> Continuez comme ça! <span class="rotate-emoji">🔧</span></p>
-                    </div>
-                </div>
-                
-                <div class="comment-form">
-                    <h2>Ajouter un commentaire</h2>
-                    <form id="commentForm">
-                        <label for="name">Pseudo :</label><br>
-                        <input type="text" id="name" name="name" required><br>
-                        <label for="comment">Message :</label><br>
-                        <textarea id="comment" name="comment" required></textarea><br>
-                        <div class="emoji-dropdown">
-                            <button type="button" class="emoji-btn" onclick="toggleEmoji()">+ emoji</button>
-                            <div id="emojiDropdown" class="emoji-content"></div>
-                        </div>
-                        <button type="submit">Envoyer 🚀</button>
-                    </form>
-                </div>
-
-                <div id="commentsList">
-                    <!-- Les nouveaux commentaires seront ajoutés ici dynamiquement -->
-                </div>
-            </section>
+           <section id="forum" class="active">
+    <h1>💻 lebladex commentaire 🎮</h1>
+    
+    <div class="existing-comments">
+        <h2>Messages existants</h2>
+        <div id="commentsList" class="comments-container">
+            <!-- Les commentaires existants et nouveaux seront ajoutés ici -->
+        </div>
+    </div>
+    
+    <div class="comment-form">
+        <h2>Ajouter un commentaire</h2>
+        <form id="commentForm">
+            <label for="name">Pseudo :</label><br>
+            <input type="text" id="name" name="name" required><br>
+            <label for="comment">Message :</label><br>
+            <textarea id="comment" name="comment" required></textarea><br>
+            <div class="emoji-dropdown">
+                <button type="button" class="emoji-btn" onclick="toggleEmoji()">+ emoji</button>
+                <div id="emojiDropdown" class="emoji-content"></div>
+            </div>
+            <button type="submit">Envoyer 🚀</button>
+        </form>
+    </div>
+</section>
         </main>
     </div>
 
@@ -647,6 +665,66 @@
             `;
             commentsList.prepend(commentElement);
         });
+    }
+
+    // Charger et afficher les commentaires au chargement de la page
+    document.addEventListener('DOMContentLoaded', () => {
+        const comments = loadComments();
+        displayComments(comments);
+    });
+
+    // Modifier la gestion du formulaire pour sauvegarder les nouveaux commentaires
+    document.getElementById('commentForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const name = document.getElementById('name').value;
+        let comment = document.getElementById('comment').value;
+        
+        // Appliquer des animations aléatoires aux emojis dans le commentaire
+        gamingHackerEmojis.forEach(emoji => {
+            const regex = new RegExp(emoji, 'g');
+            comment = comment.replace(regex, applyRandomAnimation(emoji));
+        });
+        
+        const newComment = { name, text: comment };
+        
+        // Charger les commentaires existants, ajouter le nouveau, et sauvegarder
+        const comments = loadComments();
+        comments.push(newComment);
+        saveComments(comments);
+        
+        // Afficher tous les commentaires, y compris le nouveau
+        displayComments(comments);
+        
+        // Réinitialiser le formulaire
+        document.getElementById('name').value = '';
+        document.getElementById('comment').value = '';
+    });
+        function saveComments(comments) {
+        localStorage.setItem('lebladexComments', JSON.stringify(comments));
+    }
+
+    // Fonction pour charger les commentaires depuis le localStorage
+    function loadComments() {
+        const savedComments = localStorage.getItem('lebladexComments');
+        return savedComments ? JSON.parse(savedComments) : [];
+    }
+
+    // Fonction pour afficher les commentaires
+    function displayComments(comments) {
+        const commentsList = document.getElementById('commentsList');
+        commentsList.innerHTML = '';
+        comments.forEach(comment => {
+            const commentElement = document.createElement('div');
+            commentElement.classList.add('comment');
+            commentElement.innerHTML = `
+                <strong>${comment.name}</strong>
+                <p>${comment.text}</p>
+            `;
+            commentsList.appendChild(commentElement);
+        });
+        // Faire défiler jusqu'au dernier commentaire
+        commentsList.scrollTop = commentsList.scrollHeight;
     }
 
     // Charger et afficher les commentaires au chargement de la page
